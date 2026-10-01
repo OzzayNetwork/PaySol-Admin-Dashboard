@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 63.8 72" width="180" height="180">
+  <g>
+    <!-- Path 1 -->
+    <path d="M41.5,27.5c2.8,14.2,8.3,19.8,22.3,22.1C50.8,51.5,43.4,58.8,41.6,72c-1.8-13-9.2-20.3-22.2-22.4  
+             C32.6,47.9,40,40.7,41.5,27.5z" fill="#555b6d">
+      <animate attributeName="fill" values="#555b6d;#2164f3;#009688;#555b6d" dur="6s" repeatCount="indefinite" />
+    </path>
+
+    <!-- Path 2 -->
+    <path d="M8.1,16.9C17.8,15.3,23.5,9.9,24.9,0c1.3,9.7,6.8,15.3,16.6,16.8c-9.7,1.6-15.2,7.2-16.6,16.9  
+             C23.3,24.1,17.8,18.5,8.1,16.9z" fill="#2164f3">
+      <animate attributeName="fill" values="#2164f3;#009688;#555b6d;#2164f3" dur="6s" begin="2s" repeatCount="indefinite" />
+    </path>
+
+    <!-- Path 3 -->
+    <path d="M17.6,34.5c-6,2-7.2,3.3-9,8.9c-0.8-2.3-1.5-4.3-3-5.8c-1.5-1.5-3.4-2.3-5.6-3c4.6-1,7.4-3.7,8.5-8.4  
+             C9.7,30.8,12.4,33.7,17.6,34.5z" fill="#009688">
+      <animate attributeName="fill" values="#009688;#555b6d;#2164f3;#009688" dur="6s" begin="4s" repeatCount="indefinite" />
+    </path>
+  </g>
+</svg>

@@ -1,0 +1,722 @@
+[
+  {
+    "label": "Kenya",
+    "countryCode": "KE",
+    "value": 220,
+    "percent": 17.27
+  },
+  {
+    "label": "Uganda",
+    "countryCode": "UG",
+    "value": 50,
+    "percent": 44.75
+  },
+  {
+    "label": "Tanzania",
+    "countryCode": "TZ",
+    "value": 471,
+    "percent": 44.65
+  },
+  {
+    "label": "Rwanda",
+    "countryCode": "RW",
+    "value": 411,
+    "percent": 19.89
+  },
+  {
+    "label": "Burundi",
+    "countryCode": "BI",
+    "value": 191,
+    "percent": 8.41
+  },
+  {
+    "label": "Ethiopia",
+    "countryCode": "ET",
+    "value": 431,
+    "percent": 34.11
+  },
+  {
+    "label": "Somalia",
+    "countryCode": "SO",
+    "value": 160,
+    "percent": 9.38
+  },
+  {
+    "label": "South Sudan",
+    "countryCode": "SS",
+    "value": 499,
+    "percent": 35.62
+  },
+  {
+    "label": "Sudan",
+    "countryCode": "SD",
+    "value": 207,
+    "percent": 14.19
+  },
+  {
+    "label": "DR Congo",
+    "countryCode": "XX",
+    "value": 18,
+    "percent": 16.98
+  },
+  {
+    "label": "Congo",
+    "countryCode": "CG",
+    "value": 342,
+    "percent": 28.1
+  },
+  {
+    "label": "Nigeria",
+    "countryCode": "NG",
+    "value": 321,
+    "percent": 48.51
+  },
+  {
+    "label": "Ghana",
+    "countryCode": "GH",
+    "value": 380,
+    "percent": 7.49
+  },
+  {
+    "label": "Senegal",
+    "countryCode": "SN",
+    "value": 14,
+    "percent": 33.62
+  },
+  {
+    "label": "Gambia",
+    "countryCode": "GM",
+    "value": 472,
+    "percent": 29.69
+  },
+  {
+    "label": "Mali",
+    "countryCode": "ML",
+    "value": 464,
+    "percent": 29.1
+  },
+  {
+    "label": "Niger",
+    "countryCode": "NG",
+    "value": 24,
+    "percent": 13.39
+  },
+  {
+    "label": "Chad",
+    "countryCode": "TD",
+    "value": 340,
+    "percent": 16.61
+  },
+  {
+    "label": "Central African Republic",
+    "countryCode": "CF",
+    "value": 188,
+    "percent": 41.39
+  },
+  {
+    "label": "Cameroon",
+    "countryCode": "CM",
+    "value": 259,
+    "percent": 28.09
+  },
+  {
+    "label": "Equatorial Guinea",
+    "countryCode": "GQ",
+    "value": 423,
+    "percent": 36.39
+  },
+  {
+    "label": "Gabon",
+    "countryCode": "GA",
+    "value": 128,
+    "percent": 27.25
+  },
+  {
+    "label": "Angola",
+    "countryCode": "AO",
+    "value": 461,
+    "percent": 23.55
+  },
+  {
+    "label": "Zambia",
+    "countryCode": "ZM",
+    "value": 128,
+    "percent": 26.74
+  },
+  {
+    "label": "Zimbabwe",
+    "countryCode": "ZW",
+    "value": 321,
+    "percent": 23.68
+  },
+  {
+    "label": "Botswana",
+    "countryCode": "BW",
+    "value": 374,
+    "percent": 43.17
+  },
+  {
+    "label": "Namibia",
+    "countryCode": "NA",
+    "value": 57,
+    "percent": 34.93
+  },
+  {
+    "label": "South Africa",
+    "countryCode": "ZA",
+    "value": 309,
+    "percent": 30.65
+  },
+  {
+    "label": "Lesotho",
+    "countryCode": "LS",
+    "value": 131,
+    "percent": 26.85
+  },
+  {
+    "label": "Eswatini",
+    "countryCode": "SZ",
+    "value": 115,
+    "percent": 11.27
+  },
+  {
+    "label": "Mozambique",
+    "countryCode": "MZ",
+    "value": 489,
+    "percent": 20.94
+  },
+  {
+    "label": "Madagascar",
+    "countryCode": "MG",
+    "value": 348,
+    "percent": 43.39
+  },
+  {
+    "label": "Egypt",
+    "countryCode": "EG",
+    "value": 99,
+    "percent": 12.03
+  },
+  {
+    "label": "Libya",
+    "countryCode": "LY",
+    "value": 474,
+    "percent": 18.34
+  },
+  {
+    "label": "Tunisia",
+    "countryCode": "TN",
+    "value": 250,
+    "percent": 26.22
+  },
+  {
+    "label": "Algeria",
+    "countryCode": "DZ",
+    "value": 250,
+    "percent": 48.37
+  },
+  {
+    "label": "Morocco",
+    "countryCode": "MA",
+    "value": 246,
+    "percent": 31.36
+  },
+  {
+    "label": "Western Sahara",
+    "countryCode": "EH",
+    "value": 495,
+    "percent": 49.46
+  },
+  {
+    "label": "Mauritania",
+    "countryCode": "MR",
+    "value": 405,
+    "percent": 27.62
+  },
+  {
+    "label": "Eritrea",
+    "countryCode": "ER",
+    "value": 175,
+    "percent": 46.91
+  },
+  {
+    "label": "Djibouti",
+    "countryCode": "DJ",
+    "value": 266,
+    "percent": 10.18
+  },
+  {
+    "label": "Cape Verde",
+    "countryCode": "XX",
+    "value": 107,
+    "percent": 32.96
+  },
+  {
+    "label": "Seychelles",
+    "countryCode": "SC",
+    "value": 297,
+    "percent": 47.8
+  },
+  {
+    "label": "Comoros",
+    "countryCode": "KM",
+    "value": 10,
+    "percent": 20.1
+  },
+  {
+    "label": "Mauritius",
+    "countryCode": "MU",
+    "value": 86,
+    "percent": 40.54
+  },
+  {
+    "label": "Benin",
+    "countryCode": "BJ",
+    "value": 319,
+    "percent": 24.95
+  },
+  {
+    "label": "Togo",
+    "countryCode": "TG",
+    "value": 30,
+    "percent": 6.47
+  },
+  {
+    "label": "Guinea",
+    "countryCode": "GN",
+    "value": 82,
+    "percent": 18.52
+  },
+  {
+    "label": "Guinea-Bissau",
+    "countryCode": "GW",
+    "value": 267,
+    "percent": 27.16
+  },
+  {
+    "label": "Sierra Leone",
+    "countryCode": "SL",
+    "value": 399,
+    "percent": 13.01
+  },
+  {
+    "label": "Liberia",
+    "countryCode": "LR",
+    "value": 245,
+    "percent": 6.07
+  },
+  {
+    "label": "Ivory Coast",
+    "countryCode": "XX",
+    "value": 7,
+    "percent": 9.71
+  },
+  {
+    "label": "Burkina Faso",
+    "countryCode": "BF",
+    "value": 498,
+    "percent": 10.35
+  },
+  {
+    "label": "Malawi",
+    "countryCode": "MW",
+    "value": 135,
+    "percent": 48.99
+  },
+  {
+    "label": "Country_55",
+    "countryCode": "XX",
+    "value": 454,
+    "percent": 23.94
+  },
+  {
+    "label": "Country_56",
+    "countryCode": "XX",
+    "value": 191,
+    "percent": 28.78
+  },
+  {
+    "label": "Country_57",
+    "countryCode": "XX",
+    "value": 482,
+    "percent": 35.36
+  },
+  {
+    "label": "Country_58",
+    "countryCode": "XX",
+    "value": 94,
+    "percent": 27.34
+  },
+  {
+    "label": "Country_59",
+    "countryCode": "XX",
+    "value": 145,
+    "percent": 18.72
+  },
+  {
+    "label": "Country_60",
+    "countryCode": "XX",
+    "value": 470,
+    "percent": 16.41
+  },
+  {
+    "label": "Country_61",
+    "countryCode": "XX",
+    "value": 232,
+    "percent": 9.71
+  },
+  {
+    "label": "Country_62",
+    "countryCode": "XX",
+    "value": 462,
+    "percent": 22.94
+  },
+  {
+    "label": "Country_63",
+    "countryCode": "XX",
+    "value": 216,
+    "percent": 15.89
+  },
+  {
+    "label": "Country_64",
+    "countryCode": "XX",
+    "value": 269,
+    "percent": 6.55
+  },
+  {
+    "label": "Country_65",
+    "countryCode": "XX",
+    "value": 288,
+    "percent": 28.55
+  },
+  {
+    "label": "Country_66",
+    "countryCode": "XX",
+    "value": 387,
+    "percent": 27.34
+  },
+  {
+    "label": "Country_67",
+    "countryCode": "XX",
+    "value": 182,
+    "percent": 25.62
+  },
+  {
+    "label": "Country_68",
+    "countryCode": "XX",
+    "value": 400,
+    "percent": 15.45
+  },
+  {
+    "label": "Country_69",
+    "countryCode": "XX",
+    "value": 109,
+    "percent": 36.69
+  },
+  {
+    "label": "Country_70",
+    "countryCode": "XX",
+    "value": 258,
+    "percent": 41.43
+  },
+  {
+    "label": "Country_71",
+    "countryCode": "XX",
+    "value": 400,
+    "percent": 27.64
+  },
+  {
+    "label": "Country_72",
+    "countryCode": "XX",
+    "value": 192,
+    "percent": 11.53
+  },
+  {
+    "label": "Country_73",
+    "countryCode": "XX",
+    "value": 104,
+    "percent": 14.53
+  },
+  {
+    "label": "Country_74",
+    "countryCode": "XX",
+    "value": 299,
+    "percent": 25.98
+  },
+  {
+    "label": "Country_75",
+    "countryCode": "XX",
+    "value": 59,
+    "percent": 23.89
+  },
+  {
+    "label": "Country_76",
+    "countryCode": "XX",
+    "value": 443,
+    "percent": 21.69
+  },
+  {
+    "label": "Country_77",
+    "countryCode": "XX",
+    "value": 364,
+    "percent": 37.14
+  },
+  {
+    "label": "Country_78",
+    "countryCode": "XX",
+    "value": 210,
+    "percent": 40.02
+  },
+  {
+    "label": "Country_79",
+    "countryCode": "XX",
+    "value": 361,
+    "percent": 15.54
+  },
+  {
+    "label": "Country_80",
+    "countryCode": "XX",
+    "value": 299,
+    "percent": 48.0
+  },
+  {
+    "label": "Country_81",
+    "countryCode": "XX",
+    "value": 278,
+    "percent": 49.77
+  },
+  {
+    "label": "Country_82",
+    "countryCode": "XX",
+    "value": 9,
+    "percent": 28.54
+  },
+  {
+    "label": "Country_83",
+    "countryCode": "XX",
+    "value": 289,
+    "percent": 20.18
+  },
+  {
+    "label": "Country_84",
+    "countryCode": "XX",
+    "value": 280,
+    "percent": 46.98
+  },
+  {
+    "label": "Country_85",
+    "countryCode": "XX",
+    "value": 84,
+    "percent": 17.8
+  },
+  {
+    "label": "Country_86",
+    "countryCode": "XX",
+    "value": 157,
+    "percent": 31.83
+  },
+  {
+    "label": "Country_87",
+    "countryCode": "XX",
+    "value": 264,
+    "percent": 6.29
+  },
+  {
+    "label": "Country_88",
+    "countryCode": "XX",
+    "value": 23,
+    "percent": 13.96
+  },
+  {
+    "label": "Country_89",
+    "countryCode": "XX",
+    "value": 288,
+    "percent": 22.8
+  },
+  {
+    "label": "Country_90",
+    "countryCode": "XX",
+    "value": 287,
+    "percent": 8.22
+  },
+  {
+    "label": "Country_91",
+    "countryCode": "XX",
+    "value": 104,
+    "percent": 25.49
+  },
+  {
+    "label": "Country_92",
+    "countryCode": "XX",
+    "value": 381,
+    "percent": 44.15
+  },
+  {
+    "label": "Country_93",
+    "countryCode": "XX",
+    "value": 309,
+    "percent": 25.58
+  },
+  {
+    "label": "Country_94",
+    "countryCode": "XX",
+    "value": 228,
+    "percent": 26.95
+  },
+  {
+    "label": "Country_95",
+    "countryCode": "XX",
+    "value": 491,
+    "percent": 19.26
+  },
+  {
+    "label": "Country_96",
+    "countryCode": "XX",
+    "value": 444,
+    "percent": 13.68
+  },
+  {
+    "label": "Country_97",
+    "countryCode": "XX",
+    "value": 455,
+    "percent": 25.16
+  },
+  {
+    "label": "Country_98",
+    "countryCode": "XX",
+    "value": 449,
+    "percent": 34.39
+  },
+  {
+    "label": "Country_99",
+    "countryCode": "XX",
+    "value": 410,
+    "percent": 41.16
+  },
+  {
+    "label": "Country_100",
+    "countryCode": "XX",
+    "value": 6,
+    "percent": 45.38
+  },
+  {
+    "label": "Country_101",
+    "countryCode": "XX",
+    "value": 97,
+    "percent": 34.9
+  },
+  {
+    "label": "Country_102",
+    "countryCode": "XX",
+    "value": 457,
+    "percent": 5.61
+  },
+  {
+    "label": "Country_103",
+    "countryCode": "XX",
+    "value": 153,
+    "percent": 45.2
+  },
+  {
+    "label": "Country_104",
+    "countryCode": "XX",
+    "value": 371,
+    "percent": 3.71
+  },
+  {
+    "label": "Country_105",
+    "countryCode": "XX",
+    "value": 61,
+    "percent": 37.16
+  },
+  {
+    "label": "Country_106",
+    "countryCode": "XX",
+    "value": 352,
+    "percent": 30.88
+  },
+  {
+    "label": "Country_107",
+    "countryCode": "XX",
+    "value": 476,
+    "percent": 19.66
+  },
+  {
+    "label": "Country_108",
+    "countryCode": "XX",
+    "value": 170,
+    "percent": 17.54
+  },
+  {
+    "label": "Country_109",
+    "countryCode": "XX",
+    "value": 205,
+    "percent": 6.79
+  },
+  {
+    "label": "Country_110",
+    "countryCode": "XX",
+    "value": 441,
+    "percent": 43.98
+  },
+  {
+    "label": "Country_111",
+    "countryCode": "XX",
+    "value": 409,
+    "percent": 18.1
+  },
+  {
+    "label": "Country_112",
+    "countryCode": "XX",
+    "value": 449,
+    "percent": 42.42
+  },
+  {
+    "label": "Country_113",
+    "countryCode": "XX",
+    "value": 222,
+    "percent": 12.23
+  },
+  {
+    "label": "Country_114",
+    "countryCode": "XX",
+    "value": 201,
+    "percent": 44.97
+  },
+  {
+    "label": "Country_115",
+    "countryCode": "XX",
+    "value": 177,
+    "percent": 31.35
+  },
+  {
+    "label": "Country_116",
+    "countryCode": "XX",
+    "value": 245,
+    "percent": 24.77
+  },
+  {
+    "label": "Country_117",
+    "countryCode": "XX",
+    "value": 326,
+    "percent": 9.52
+  },
+  {
+    "label": "Country_118",
+    "countryCode": "XX",
+    "value": 429,
+    "percent": 21.63
+  },
+  {
+    "label": "Country_119",
+    "countryCode": "XX",
+    "value": 390,
+    "percent": 45.0
+  },
+  {
+    "label": "Country_120",
+    "countryCode": "XX",
+    "value": 28,
+    "percent": 40.54
+  }
+]

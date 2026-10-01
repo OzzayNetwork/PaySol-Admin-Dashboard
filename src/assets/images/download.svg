@@ -1,0 +1,102 @@
+<!--?xml version="1.0" encoding="UTF-8"?-->
+<svg width="1200" height="820" viewBox="0 0 1200 820" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 z" fill="#333"></path>
+    </marker>
+    <style>
+      .title { font: 700 22px/1.2 'Segoe UI', Roboto, Arial; fill: #ffffff; }
+      .node-text { font: 600 14px/1.2 'Segoe UI', Roboto, Arial; fill: #102a43; }
+      .small { font: 500 12px 'Segoe UI', Roboto, Arial; fill: #102a43; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="820" rx="10" fill="white"></rect>
+
+  <!-- Title bar -->
+  <g transform="translate(100,18)">
+    <rect x="0" y="0" width="1000" height="58" rx="12" fill="#0b4f6c"></rect>
+    <text x="30" y="36" class="title">🏥 Hospital — Employer Credit Payment Workflow</text>
+  </g>
+
+  <!-- Vertical flow (left column) -->
+  <!-- Node A -->
+  <g transform="translate(100,100)">
+    <rect x="0" y="0" width="1000" height="78" rx="12" fill="#FFE28A" stroke="#d9b94d"></rect>
+    <text x="24" y="28" class="node-text">🏢 Company registered &amp; Employee list submitted</text>
+    <text x="24" y="50" class="small">List renewed every 6 months</text>
+  </g>
+
+  <!-- Node B -->
+  <g transform="translate(100,200)">
+    <rect x="0" y="0" width="1000" height="62" rx="12" fill="#F6F7F8" stroke="#dfe6ea"></rect>
+    <text x="24" y="36" class="node-text">👣 Patient visits hospital</text>
+  </g>
+
+  <!-- Node C -->
+  <g transform="translate(100,290)">
+    <rect x="0" y="0" width="1000" height="76" rx="12" fill="#FFD7A6" stroke="#e0a86a"></rect>
+    <text x="24" y="32" class="node-text">🧾 Cashier searches patient in Employer Credit list</text>
+    <text x="24" y="54" class="small">(match by ID / company membership)</text>
+  </g>
+
+  <!-- Vertical connector down to diamond -->
+  <line x1="600" y1="366" x2="600" y2="400" stroke="#777" stroke-width="2" marker-end="url(#arrow)"></line>
+
+  <!-- Diamond decision: Found? -->
+  <g transform="translate(520,400)">
+    <polygon points="80,0 160,80 80,160 0,80" fill="#FFF2CC" stroke="#e0c07a"></polygon>
+    <text x="55" y="82" text-anchor="middle" class="node-text">CB Employer Match?</text>
+  </g>
+
+  <!-- Left (No) branch box -->
+  <g transform="translate(60,480)">
+    <rect x="0" y="0" width="360" height="70" rx="12" fill="#FFD6D6" stroke="#e3a6a6"></rect>
+    <text x="20" y="40" class="node-text">❌ Not found — Choose another payment method</text>
+  </g>
+
+  <!-- Arrow from diamond to left (No) -->
+  <path d="M540,480 L420,480" stroke="#b33" stroke-width="2" fill="none" marker-end="url(#arrow)"></path>
+  <text x="480" y="468" class="small" fill="#b33">No</text>
+
+  <!-- Right (Yes) branch box: Proceed to treatment -->
+  <g transform="translate(720,440)">
+    <rect x="0" y="0" width="360" height="70" rx="12" fill="#C6F6D5" stroke="#7bd08b"></rect>
+    <text x="20" y="40" class="node-text">✅ Found — Proceed to treatment / services</text>
+  </g>
+
+  <!-- Arrow from diamond to right (Yes) -->
+  <path d="M660,480 L720,480" stroke="#1b8a44" stroke-width="2" fill="none" marker-end="url(#arrow)"></path>
+  <text x="690" y="468" class="small" fill="#1b8a44">Yes</text>
+
+  <!-- Downstream right path: Invoice -->
+  <g transform="translate(720,540)">
+    <rect x="0" y="0" width="360" height="68" rx="12" fill="#C9E7FF" stroke="#7fb6e6"></rect>
+    <text x="20" y="38" class="node-text">🧾 Invoice generated under company account</text>
+  </g>
+
+  <path d="M900,510 L900,540" stroke="#777" stroke-width="2" fill="none" marker-end="url(#arrow)"></path>
+
+  <!-- End of month statement -->
+  <g transform="translate(720,620)">
+    <rect x="0" y="0" width="360" height="68" rx="12" fill="#E9D5FF" stroke="#c6a8e3"></rect>
+    <text x="20" y="38" class="node-text">📄 End of month: Statement sent to company</text>
+  </g>
+
+  <!-- Final: Company payment -->
+  <g transform="translate(720,700)">
+    <rect x="0" y="0" width="360" height="68" rx="12" fill="#A7F3D0" stroke="#66c88f"></rect>
+    <text x="20" y="38" class="node-text">💳 Company makes payment (upon receiving statement)</text>
+  </g>
+
+  <!-- Vertical connectors for right path -->
+  <path d="M900,510 L900,540 L900,620 L900,700" stroke="#777" stroke-width="2" fill="none" marker-end="url(#arrow)"></path>
+
+  <!-- Vertical connectors from node C to diamond -->
+  <path d="M600,366 L600,400" stroke="#777" stroke-width="2" fill="none" marker-end="url(#arrow)"></path>
+
+  <!-- small footer note -->
+  <text x="100" y="790" class="small" fill="#666">Note: Employee lists are maintained by company and should be renewed every 6 months. Cashier only bills under company account when a valid match exists.</text>
+
+</svg>

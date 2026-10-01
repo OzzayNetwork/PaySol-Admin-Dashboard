@@ -1,0 +1,368 @@
+[
+  {
+    "label": "Nairobi",
+    "regionCode": "KE-NAI",
+    "value": 1219,
+    "percent": 9.55
+  },
+  {
+    "label": "Mombasa",
+    "regionCode": "KE-MOM",
+    "value": 326,
+    "percent": 24.86
+  },
+  {
+    "label": "Kisumu",
+    "regionCode": "KE-KIS",
+    "value": 4455,
+    "percent": 25.87
+  },
+  {
+    "label": "Nakuru",
+    "regionCode": "KE-NAK",
+    "value": 4182,
+    "percent": 26.75
+  },
+  {
+    "label": "Uasin Gishu",
+    "regionCode": "KE-UAS",
+    "value": 835,
+    "percent": 22.38
+  },
+  {
+    "label": "Kiambu",
+    "regionCode": "KE-KIA",
+    "value": 469,
+    "percent": 2.15
+  },
+  {
+    "label": "Machakos",
+    "regionCode": "KE-MAC",
+    "value": 1986,
+    "percent": 18.24
+  },
+  {
+    "label": "Kajiado",
+    "regionCode": "KE-KAJ",
+    "value": 1890,
+    "percent": 22.23
+  },
+  {
+    "label": "Kericho",
+    "regionCode": "KE-KER",
+    "value": 3566,
+    "percent": 26.81
+  },
+  {
+    "label": "Bungoma",
+    "regionCode": "KE-BUN",
+    "value": 807,
+    "percent": 28.21
+  },
+  {
+    "label": "Busia",
+    "regionCode": "KE-BUS",
+    "value": 35,
+    "percent": 24.43
+  },
+  {
+    "label": "Kakamega",
+    "regionCode": "KE-KAK",
+    "value": 3012,
+    "percent": 32.19
+  },
+  {
+    "label": "Vihiga",
+    "regionCode": "KE-VIH",
+    "value": 4692,
+    "percent": 31.73
+  },
+  {
+    "label": "Homa Bay",
+    "regionCode": "KE-HOM",
+    "value": 2916,
+    "percent": 19.55
+  },
+  {
+    "label": "Migori",
+    "regionCode": "KE-MIG",
+    "value": 3431,
+    "percent": 15.7
+  },
+  {
+    "label": "Kisii",
+    "regionCode": "KE-KIS",
+    "value": 1298,
+    "percent": 14.77
+  },
+  {
+    "label": "Nyamira",
+    "regionCode": "KE-NYA",
+    "value": 3265,
+    "percent": 28.88
+  },
+  {
+    "label": "Narok",
+    "regionCode": "KE-NAR",
+    "value": 2003,
+    "percent": 31.55
+  },
+  {
+    "label": "Bomet",
+    "regionCode": "KE-BOM",
+    "value": 4835,
+    "percent": 1.87
+  },
+  {
+    "label": "Nandi",
+    "regionCode": "KE-NAN",
+    "value": 3325,
+    "percent": 11.65
+  },
+  {
+    "label": "Elgeyo Marakwet",
+    "regionCode": "KE-ELG",
+    "value": 1892,
+    "percent": 20.06
+  },
+  {
+    "label": "Trans Nzoia",
+    "regionCode": "KE-TRA",
+    "value": 507,
+    "percent": 38.51
+  },
+  {
+    "label": "West Pokot",
+    "regionCode": "KE-WES",
+    "value": 1087,
+    "percent": 4.97
+  },
+  {
+    "label": "Turkana",
+    "regionCode": "KE-TUR",
+    "value": 3508,
+    "percent": 12.9
+  },
+  {
+    "label": "Samburu",
+    "regionCode": "KE-SAM",
+    "value": 4620,
+    "percent": 18.82
+  },
+  {
+    "label": "Laikipia",
+    "regionCode": "KE-LAI",
+    "value": 4333,
+    "percent": 21.34
+  },
+  {
+    "label": "Embu",
+    "regionCode": "KE-EMB",
+    "value": 3108,
+    "percent": 25.85
+  },
+  {
+    "label": "Meru",
+    "regionCode": "KE-MER",
+    "value": 3666,
+    "percent": 31.87
+  },
+  {
+    "label": "Tharaka Nithi",
+    "regionCode": "KE-THA",
+    "value": 943,
+    "percent": 34.52
+  },
+  {
+    "label": "Isiolo",
+    "regionCode": "KE-ISI",
+    "value": 504,
+    "percent": 11.95
+  },
+  {
+    "label": "Marsabit",
+    "regionCode": "KE-MAR",
+    "value": 4641,
+    "percent": 10.24
+  },
+  {
+    "label": "Wajir",
+    "regionCode": "KE-WAJ",
+    "value": 3413,
+    "percent": 25.44
+  },
+  {
+    "label": "Mandera",
+    "regionCode": "KE-MAN",
+    "value": 3573,
+    "percent": 15.96
+  },
+  {
+    "label": "Garissa",
+    "regionCode": "KE-GAR",
+    "value": 3044,
+    "percent": 9.96
+  },
+  {
+    "label": "Tana River",
+    "regionCode": "KE-TAN",
+    "value": 388,
+    "percent": 27.15
+  },
+  {
+    "label": "Lamu",
+    "regionCode": "KE-LAM",
+    "value": 1286,
+    "percent": 15.88
+  },
+  {
+    "label": "Kwale",
+    "regionCode": "KE-KWA",
+    "value": 1779,
+    "percent": 7.73
+  },
+  {
+    "label": "Kilifi",
+    "regionCode": "KE-KIL",
+    "value": 754,
+    "percent": 30.3
+  },
+  {
+    "label": "Taita Taveta",
+    "regionCode": "KE-TAI",
+    "value": 3402,
+    "percent": 30.02
+  },
+  {
+    "label": "Baringo",
+    "regionCode": "KE-BAR",
+    "value": 588,
+    "percent": 25.2
+  },
+  {
+    "label": "Nyeri",
+    "regionCode": "KE-NYE",
+    "value": 1213,
+    "percent": 33.19
+  },
+  {
+    "label": "Murang'a",
+    "regionCode": "KE-MUR",
+    "value": 1661,
+    "percent": 28.91
+  },
+  {
+    "label": "Kirinyaga",
+    "regionCode": "KE-KIR",
+    "value": 4365,
+    "percent": 8.95
+  },
+  {
+    "label": "Nyandarua",
+    "regionCode": "KE-NYA",
+    "value": 2668,
+    "percent": 5.41
+  },
+  {
+    "label": "Siaya",
+    "regionCode": "KE-SIA",
+    "value": 4073,
+    "percent": 29.89
+  },
+  {
+    "label": "California",
+    "regionCode": "CALIFORNIA",
+    "value": 2652,
+    "percent": 21.72
+  },
+  {
+    "label": "Texas",
+    "regionCode": "TEXAS",
+    "value": 3173,
+    "percent": 12.36
+  },
+  {
+    "label": "Ontario",
+    "regionCode": "ONTARIO",
+    "value": 4236,
+    "percent": 9.39
+  },
+  {
+    "label": "Quebec",
+    "regionCode": "QUEBEC",
+    "value": 1257,
+    "percent": 25.87
+  },
+  {
+    "label": "Bavaria",
+    "regionCode": "BAVARIA",
+    "value": 2012,
+    "percent": 28.34
+  },
+  {
+    "label": "Berlin",
+    "regionCode": "BERLIN",
+    "value": 4618,
+    "percent": 24.21
+  },
+  {
+    "label": "New South Wales",
+    "regionCode": "NEW_SOUTH_WALES",
+    "value": 2178,
+    "percent": 32.51
+  },
+  {
+    "label": "Victoria",
+    "regionCode": "VICTORIA",
+    "value": 1552,
+    "percent": 18.78
+  },
+  {
+    "label": "Gauteng",
+    "regionCode": "GAUTENG",
+    "value": 4801,
+    "percent": 39.4
+  },
+  {
+    "label": "Western Cape",
+    "regionCode": "WESTERN_CAPE",
+    "value": 1603,
+    "percent": 26.55
+  },
+  {
+    "label": "Delhi",
+    "regionCode": "DELHI",
+    "value": 1550,
+    "percent": 25.62
+  },
+  {
+    "label": "Maharashtra",
+    "regionCode": "MAHARASHTRA",
+    "value": 3591,
+    "percent": 16.21
+  },
+  {
+    "label": "Tokyo",
+    "regionCode": "TOKYO",
+    "value": 2372,
+    "percent": 22.23
+  },
+  {
+    "label": "Osaka",
+    "regionCode": "OSAKA",
+    "value": 3579,
+    "percent": 32.71
+  },
+  {
+    "label": "Catalonia",
+    "regionCode": "CATALONIA",
+    "value": 370,
+    "percent": 27.78
+  },
+  {
+    "label": "Madrid",
+    "regionCode": "MADRID",
+    "value": 4856,
+    "percent": 33.06
+  }
+]

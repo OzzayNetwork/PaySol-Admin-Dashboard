@@ -1,0 +1,237 @@
+( function( $, History, undefined ) {
+
+	$(document).ready(function() {
+
+		/* Global Variables */
+
+		var $html			= $("html"),
+			$body			= $html.find("body"),
+			wWidth 			= $(window).innerWidth(),
+			wHeight 		= $(window).innerHeight(),
+			mNavTrig,
+            $wrap,
+            $nav,
+            overlay 		= $body.find(".overlay"),
+            loader          = $body.find(".loader"),
+            dayNightMode,
+            dayNightObj,
+			has_audio		= $html.hasClass( "audio" ),
+			baseUrl			= "http://" + top.location.host.toString(),
+			templateUrl		= baseUrl + "",
+			assetsUrl		= templateUrl + "/assets";
+
+
+        var baseFx = function() {
+
+            mNavTrig 		= $body.find(".trigger");
+
+            // add JS class to html
+            $html.removeClass("no-js").addClass("js");
+
+            // add loading class to body
+            setTimeout(function() {
+                $body.removeClass("unloaded").addClass("loading");
+            }, 100);
+
+            // menu click functions
+            mNavTrig.on("click", function(e) {
+                if (wWidth < 1080) {
+                    e.preventDefault();
+                    $body.toggleClass('menu-open');
+                }
+            });
+
+            megaNavTrig.on('click', function(e) {
+                e.preventDefault();
+                $(this).toggleClass ('menu-open');
+                megaMenu.fadeToggle();
+                $body.toggleClass('menu-open');
+            });
+
+            
+            $('.content-block__masonry').masonry({
+                // options
+                itemSelector: '.article-post',
+                columnWidth: '.article-post',
+              });      
+
+			$(".scroll").click(function(e){   
+                e.preventDefault();
+                $(this).addClass('active').siblings().removeClass('active');
+                $body.addClass('scrolling');
+                $('html,body').stop(true,true).animate({scrollTop:$(this.hash).offset().top}, 1000);
+                setTimeout(function() {
+                    $body.removeClass('scrolling');
+                    $(window).scroll();
+                }, 1100);
+			});
+            
+
+            /* -------------- */
+
+            // remove preload class
+            setTimeout(function() {
+                $body.removeClass("preload");
+                loader.removeAttr("style");
+            }, 120);
+            
+            // add .loads class 
+            setTimeout(function() {
+                $body.removeClass("loading").addClass("loads");
+            }, 300);
+
+            // add .unloaded class shortly after
+            setTimeout(function() {
+                $body.removeClass("loads").addClass("unloaded");
+            }, 380);
+
+            // trigger scroll event by default for visibility checker
+            $(window).scroll();
+
+            // run visibility class setter on resize or scroll
+            $(window).on("scroll resize", checkVisibility);
+
+            // add class to all internal links
+            var $internalLinks 	= $("a[href^='"+baseUrl+"'], a[href^='/'], a[href^='./'], a[href^='../'], a[href^='#']");
+
+            $.each($internalLinks, function(index, link) {
+                $(link).addClass("internal");
+            });
+
+            $(window).on('load', function() {
+                $(window).scroll();
+            })
+                
+        } // end baseFx
+    
+        var homeFx = function() {
+            // renderHome();
+        } // end homeFx
+
+
+
+		/* ON DOC READY --------------------------------------*/
+
+		// run base functions 
+        baseFx();
+                    
+		// run page functions
+		if ($body.hasClass("home")) { homeFx(); }
+
+
+		/* ON WINDOW RESIZE ----------------------------------*/
+
+		$(window).on("resize", function() {
+
+			wWidth = $(window).innerWidth();
+			wHeight = $(window).innerHeight();
+
+		});
+
+        activateEmail('.email');
+
+        $(window).on('scroll', function(e) {
+        });
+
+        
+		/* ABSTRACTED FUNCTIONS ------------------------------*/
+
+		// activate email links
+
+		function activateEmail (selector) {
+			$(selector).html( function() {
+				var adr = $(this).data("address");
+				var dom = $(this).data("domain");
+				var ext = $(this).data("ext");
+				return adr + "@" + dom + ext;
+			}).attr("href", function() {
+				return "mailto:" + $(this).html();
+			}).attr("target", "_blank");
+		}
+
+		function splitChar(string) {
+			$(string).each(function() {
+				var myStr = $(this).html();
+				myStr = myStr.split("");
+				var myContents = "";
+				for (var i = 0, len = myStr.length; i < len; i++) {
+					myContents += "<span>" + myStr[i] + "</span>";
+				}
+				$(this).html(myContents);
+			});
+		}
+
+        function checkVisibility() {
+			var window_height = $(window).height();
+			var window_top_position = $(window).scrollTop();
+			var window_bottom_position = (window_top_position + window_height);
+
+			$.each($body.find(".content-block"), function() {
+				var $element = $(this);
+				var element_height = $element.outerHeight();
+				var element_top_position = $element.offset().top;
+				var element_bottom_position = (element_top_position + element_height);
+
+				//check to see if this current container is within viewport
+				if ((element_bottom_position >= window_top_position) &&
+				(element_top_position <= window_bottom_position)) {
+                    $element.addClass("is-visible");
+                    if ($element.hasClass('animatrix') && !$element.hasClass('animation-complete')) {
+                        animateNumbers();
+                        $element.addClass('animation-complete')
+                    }
+				} else if (window_top_position <= 120) {
+					$element.removeClass("is-visible animation-complete");
+				}
+			});
+        }
+        
+        function animateNumbers() {
+
+            $('.paragasha').each(function () {
+                $(this).prop('Counter',0).animate({
+                    Counter: $(this).text()
+                }, {
+                    duration: 4000,
+                    easing: 'swing',
+                    step: function (now) {
+                        $(this).text(Math.ceil(now));
+                    }
+                });
+            });            
+        }
+
+        function renderHome() {
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+            
+            const renderer = new THREE.WebGLRenderer();
+            renderer.setSize( window.innerWidth, window.innerHeight );
+            $(renderer.domElement).addClass('magic');
+            $body.prepend( renderer.domElement );
+
+            const geometry = new THREE.BoxGeometry();
+            const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+
+            // const loader = new THREE.OBJLoader();
+
+            const cube = new THREE.Mesh( geometry, material );
+            scene.add( cube );
+
+            camera.position.z = 5;
+
+            function animate() {
+                requestAnimationFrame( animate );
+
+                cube.rotation.x += 0.01;
+                cube.rotation.y += 0.01;
+
+                renderer.render( scene, camera );
+            }
+            animate();
+        }
+
+	});
+
+})(jQuery, window.History);
+

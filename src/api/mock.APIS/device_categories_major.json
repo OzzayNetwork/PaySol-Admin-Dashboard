@@ -1,0 +1,42 @@
+[
+  {
+    "deviceCategory": "mobile",
+    "value": 44458,
+    "percent": 48.01
+  },
+  {
+    "deviceCategory": "desktop",
+    "value": 28089,
+    "percent": 14.58
+  },
+  {
+    "deviceCategory": "tablet",
+    "value": 43022,
+    "percent": 35.28
+  },
+  {
+    "deviceCategory": "smart tv",
+    "value": 31525,
+    "percent": 22.15
+  },
+  {
+    "deviceCategory": "gaming console",
+    "value": 21804,
+    "percent": 6.47
+  },
+  {
+    "deviceCategory": "wearable",
+    "value": 23141,
+    "percent": 10.94
+  },
+  {
+    "deviceCategory": "smart speaker",
+    "value": 24403,
+    "percent": 64.86
+  },
+  {
+    "deviceCategory": "other",
+    "value": 29275,
+    "percent": 42.84
+  }
+]
