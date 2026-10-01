@@ -11,1023 +11,108 @@
 
                 <!-- Left Menu Start -->
 
+                <!--
+                    The menu is data, not markup. Every item below comes from
+                    src/nav/adminMenu.js and has already been filtered to what
+                    this admin's permissions allow, so nothing here asks who is
+                    signed in — it only renders.
+
+                    That replaced ~1,180 lines of hand-written <li> elements and
+                    the isActiveParent / isCurrentPage helpers they needed.
+                -->
+
                 <ul class="metismenu list-unstyled" id="side-menu">
 
-                    <li class="menu-title" key="t-apps">Platform Administration</li>
+                    <template v-for="(item, i) in menu" :key="i">
 
-                  
+                        <!-- Section label, e.g. "Platform Administration" -->
+                        <li v-if="item.heading" class="menu-title">{{ item.label }}</li>
 
-                    <!-- ========================= -->
-                    <!-- HOME & ANALYTICS -->
-                    <!-- ========================= -->
+                        <!-- Horizontal rule between sections -->
+                        <hr v-else-if="item.divider" />
 
-                    <li :class="{ active: isActive('/') }">
-
-                        <router-link
-                            to="/"
-                            class="waves-effect"
-                            :class="{ active: isActive('/') }"
+                        <!--
+                            Group. MetisMenu is strict about this shape: the
+                            <a class="has-arrow"> and the <ul class="sub-menu">
+                            must be siblings, or the collapse breaks.
+                        -->
+                        <li
+                            v-else-if="item.children"
+                            :class="{ 'mm-active': isGroupActive(item) }"
                         >
-                            <Icon
-                                :icon="isActive('/') ? 'boxicons:dashboard-alt-filled' : 'boxicons:dashboard-alt'"
-                                class="menu-icon"
-                            />
 
-                            <span>Overview</span>
-                        </router-link>
-
-                    </li>
-
-
-                    <!-- ========================= -->
-                    <!-- TEST PAGE -->
-                    <!-- ========================= -->
-
-                    <li :class="{ active: isActive('/test-page') }">
-
-                        <router-link
-                            to="/test-page"
-                            class="waves-effect"
-                            :class="{ active: isActive('/test-page') }"
-                        >
-                            <Icon
-                                :icon="isActive('/test-page') ? 'ri:flask-fill' : 'ri:flask-line'"
-                                class="menu-icon"
-                            />
-
-                            <span>Test Page</span>
-                        </router-link>
-
-                    </li>
-
-
-                    <!-- ========================= -->
-                    <!-- TENANT -->
-                    <!-- ========================= -->
-
-                    <li :class="{ active: isActive('/hero-landing') }">
-
-                        <router-link
-                            to="/hero-landing"
-                            class="waves-effect"
-                            :class="{ active: isActive('/hero-landing') }"
-                        >
-                            <Icon
-                                :icon="isActive('/hero-landing') ? 'ri:building-2-fill' : 'ri:building-2-line'"
-                                class="menu-icon"
-                            />
-
-                            <span>Tenants</span>
-                        </router-link>
-
-                    </li>
-                     <li :class="{ active: isActive('/hero-landing') }">
-
-                        <router-link
-                            to="/hero-landing"
-                            class="waves-effect"
-                            :class="{ active: isActive('/hero-landing') }"
-                        >
-                            <Icon
-                                :icon="isActive('/hero-landing') ? 'carbon:add-filled' : 'carbon:add-alt'"
-                                class="menu-icon"
-                            />
-
-                            <span>Onboard a Tenant</span>
-                        </router-link>
-
-                    </li>
-                    <hr>                   
-
-                    <li :class="{ active: isActive('/hero-landing') }">
-
-                        <router-link
-                            to="/hero-landing"
-                            class="waves-effect"
-                            :class="{ active: isActive('/hero-landing') }"
-                        >
-                            <Icon
-                                :icon="isActive('/hero-landing') ? 'ri:price-tag-3-fill' : 'ri:price-tag-3-line'"
-                                class="menu-icon"
-                            />
-
-                            <span>Product Catalogue</span>
-                        </router-link>
-
-                    </li>
-
-                    <li :class="{ active: isActive('/hero-landing') }">
-
-                        <router-link
-                            to="/hero-landing"
-                            class="waves-effect"
-                            :class="{ active: isActive('/hero-landing') }"
-                        >
-                            <Icon
-                                :icon="isActive('/hero-landing') ? 'ri:map-pin-2-fill' : 'ri:map-pin-2-line'"
-                                class="menu-icon"
-                            />
-
-                            <span>Locations</span>
-                        </router-link>
-
-                    </li>
-
-                    <li :class="{ active: isActive('/hero-landing') }">
-
-                        <router-link
-                            to="/hero-landing"
-                            class="waves-effect"
-                            :class="{ active: isActive('/hero-landing') }"
-                        >
-                            <Icon
-                                :icon="isActive('/hero-landing') ? 'fluent:briefcase-32-filled' : 'fluent:briefcase-32-regular'"
-                                class="menu-icon"
-                            />
-
-                            <span>Business Registry</span>
-                        </router-link>
-
-                    </li>
-
-                    <li :class="{ active: isActive('/hero-landing') }">
-
-                        <router-link
-                            to="/hero-landing"
-                            class="waves-effect"
-                            :class="{ active: isActive('/hero-landing') }"
-                        >
-                            <Icon
-                                :icon="isActive('/hero-landing') ? 'boxicons:search-plus-filled' : 'boxicons:search-plus'"
-                                class="menu-icon"
-                            />
-
-                            <span>Client Leads</span>
-                        </router-link>
-
-                    </li>
-
-                    <li :class="{ active: isActive('/hero-landing') }">
-
-                        <router-link
-                            to="/hero-landing"
-                            class="waves-effect"
-                            :class="{ active: isActive('/hero-landing') }"
-                        >
-                            <Icon
-                                :icon="isActive('/hero-landing') ? 'ri:bank-fill' : 'ri:bank-line'"
-                                class="menu-icon"
-                            />
-
-                            <span>Banks & PayBills</span>
-                        </router-link>
-
-                    </li>
-
-                    
-
-
-                    <!-- ========================= -->
-                    <!-- FACILITIES -->
-                    <!-- ========================= -->
-
-                    <li
-                        :class="{
-                            'mm-active': isActiveParent([
-                                '/facilities',
-                                'facilities/add',
-                                '/facilities/subscriptions',
-                                '/facilities/moh-register'
-                            ])
-                        }"
-                    >
-
-                        <a
-                            href="javascript: void(0);"
-                            class="waves-effect has-arrow"
-                        >
-                            <Icon
-                                :icon="isActiveParent([
-                                    '/facilities',
-                                    'facilities/add',
-                                    '/facilities/subscriptions',
-                                    '/facilities/moh-register'
-                                ])
-                                    ? 'ri:hospital-fill'
-                                    : 'ri:hospital-line'"
-                                class="menu-icon"
-                            />
-
-                            <span>Facilities</span>
-                        </a>
-
-                        <ul class="sub-menu" aria-expanded="false">
-
-                            <li :class="{ active: isCurrentPage('facilities/add') }">
-                                <router-link
-                                    to="/facilities/add"
-                                    class="waves-effect"
-                                >
-                                    Add Facility
-                                </router-link>
-                            </li>
-
-                            <li :class="{ active: isCurrentPage('/facilities') }">
-                                <router-link
-                                    to="/facilities"
-                                    class="waves-effect"
-                                >
-                                    Onboarded Facilities
-                                </router-link>
-                            </li>
-
-                            <li :class="{ active: isCurrentPage('/facilities/subscriptions') }">
-                                <router-link
-                                    to="/facilities/subscriptions"
-                                    class="waves-effect"
-                                >
-                                    Subscriptions Plans
-                                </router-link>
-                            </li>
-
-                        </ul>
-
-                    </li>
-
-                   <hr/>
-                    <!-- ========================= -->
-                    <!-- BLOG -->
-                    <!-- ========================= -->
-
-                    <li
-                        :class="{
-                            'mm-active': isActiveParent([
-                                '/blogs',
-                                '/newArticle',
-                                '/blog/categories',
-                                '/blog/tags'
-                            ])
-                        }"
-                    >
-
-                        <a
-                            href="javascript: void(0);"
-                            class="waves-effect has-arrow"
-                        >
-                            <Icon
-                                :icon="isActiveParent([
-                                    '/blogs',
-                                    '/newArticle',
-                                    '/blog/categories',
-                                    '/blog/tags'
-                                ])
-                                    ? 'ri:article-fill'
-                                    : 'ri:article-line'"
-                                class="menu-icon"
-                            />
-
-                            <span>Blog posts</span>
-                        </a>
-
-                        <ul class="sub-menu" aria-expanded="false">
-
-                            <li :class="{ active: isCurrentPage('/blogs') }">
-                                <router-link
-                                    to="/blogs"
-                                    class="waves-effect"
-                                >
-                                    All Articles
-                                </router-link>
-                            </li>
-
-                            <li :class="{ active: isCurrentPage('/newArticle') }">
-                                <router-link
-                                    to="/newArticle"
-                                    class="waves-effect"
-                                >
-                                    Create Article
-                                </router-link>
-                            </li>
-
-                            <li
-                                class="d-none"
-                                :class="{ active: isCurrentPage('/blog/categories') }"
+                            <a
+                                href="javascript: void(0);"
+                                class="waves-effect has-arrow"
                             >
-                                <router-link
-                                    to="/blog/categories"
-                                    class="waves-effect"
-                                >
-                                    Categories
-                                </router-link>
-                            </li>
+                                <Icon
+                                    :icon="iconFor(item, isGroupActive(item))"
+                                    class="menu-icon"
+                                />
+                                <span>{{ item.label }}</span>
+                            </a>
 
-                            <li
-                                class="d-none"
-                                :class="{ active: isCurrentPage('/blog/tags') }"
+                            <ul class="sub-menu" aria-expanded="false">
+
+                                <li
+                                    v-for="child in item.children"
+                                    :key="child.label"
+                                >
+
+                                    <router-link
+                                        v-if="child.to"
+                                        :to="child.to"
+                                        class="waves-effect"
+                                    >
+                                        {{ child.label }}
+                                    </router-link>
+
+                                    <!-- to: null → an action, not a destination -->
+                                    <a
+                                        v-else
+                                        href="#"
+                                        class="waves-effect"
+                                        @click.prevent="onComposeClick"
+                                    >
+                                        {{ child.label }}
+                                    </a>
+
+                                </li>
+
+                            </ul>
+
+                        </li>
+
+                        <!-- Leaf link -->
+                        <li v-else :class="{ active: isActive(item.to) }">
+
+                            <router-link
+                                v-if="item.to"
+                                :to="item.to"
+                                class="waves-effect"
+                                :class="{ active: isActive(item.to) }"
                             >
-                                <router-link
-                                    to="/blog/tags"
-                                    class="waves-effect"
-                                >
-                                    Tags
-                                </router-link>
-                            </li>
-
-                        </ul>
-
-                    </li>
-
-                   
-
-                    <!-- ========================= -->
-                    <!-- PARTNERS -->
-                    <!-- ========================= -->
-
-                    <li
-                        :class="{
-                            'mm-active': isActiveParent([
-                                '/partners/list',
-                                '/partners/categories',
-                                '/partners/add'
-                            ])
-                        }"
-                    >
-
-                        <a
-                            href="javascript: void(0);"
-                            class="waves-effect has-arrow"
-                        >
-                           <Icon
-                                :icon="isActiveParent([
-                                    '/partners/list',
-                                    '/partners/categories',
-                                    '/partners/add'
-                                ])
-                                    ? 'ri:building-2-fill'
-                                    : 'ri:building-2-line'"
-                                class="menu-icon"
-                            />
-
-                            <span>Our Partners</span>
-                        </a>
-
-                        <ul class="sub-menu" aria-expanded="false">
-
-                            <li :class="{ active: isCurrentPage('/partners/list') }">
-                                <router-link
-                                    to="/partners/list"
-                                    class="waves-effect"
-                                >
-                                    All Partners
-                                </router-link>
-                            </li>
-
-                            <li :class="{ active: isCurrentPage('/partners/add') }">
-                                <router-link
-                                    to="/partners/add"
-                                    class="waves-effect"
-                                >
-                                    Add Partner
-                                </router-link>
-                            </li>
-
-                        </ul>
-
-                    </li>
-
-
-                    <!-- ========================= -->
-                    <!-- INVENTORY -->
-                    <!-- ========================= -->
-
-                    <li class="d-none"
-                        :class="{
-                            'mm-active': isActiveParent([
-                                '/POS-Manager/inventory',
-                                '/POS-Manager/new-product'
-                            ])
-                        }"
-                    >
-
-                        <a
-                            href="javascript: void(0);"
-                            class="waves-effect has-arrow"
-                        >
-                            <Icon
-                                :icon="isActiveParent([
-                                    '/POS-Manager/inventory',
-                                    '/POS-Manager/new-product'
-                                ])
-                                    ? 'ri:archive-fill'
-                                    : 'ri:archive-line'"
-                                class="menu-icon"
-                            />
-
-                            <span>Inventory</span>
-                        </a>
-
-                        <ul class="sub-menu" aria-expanded="false">
-
-                            <li :class="{ active: isCurrentPage('/POS-Manager/inventory') }">
-                                <router-link
-                                    to="/POS-Manager/inventory"
-                                    class="waves-effect"
-                                >
-                                    Products & Services
-                                </router-link>
-                            </li>
-
-                            <li :class="{ active: isCurrentPage('/POS-Manager/new-product') }">
-                                <router-link
-                                    to="/POS-Manager/new-product"
-                                    class="waves-effect"
-                                >
-                                    Add Item
-                                </router-link>
-                            </li>
-
-                        </ul>
-
-                    </li>
-
-
-                    <!-- ========================= -->
-                    <!-- SALES -->
-                    <!-- ========================= -->
-
-                    <li class="d-none"
-                        :class="{
-                            'mm-active': isActiveParent([
-                                '/Sales/POS',
-                                '/MenuProducts',
-                                '/coming-soon'
-                            ])
-                        }"
-                    >
-
-                        <a
-                            href="javascript: void(0);"
-                            class="waves-effect has-arrow"
-                        >
-                            <Icon
-                                :icon="isActiveParent([
-                                    '/Sales/POS',
-                                    '/MenuProducts',
-                                    '/coming-soon'
-                                ])
-                                    ? 'ri:receipt-fill'
-                                    : 'ri:receipt-line'"
-                                class="menu-icon"
-                            />
-
-                            <span>Sales</span>
-                        </a>
-
-                        <ul class="sub-menu" aria-expanded="false">
-
-                            <li :class="{ active: isCurrentPage('/MenuProducts') }">
-                                <router-link
-                                    to="/MenuProducts"
-                                    class="waves-effect"
-                                >
-                                    View Sales
-                                </router-link>
-                            </li>
-
-                            <li :class="{ active: isCurrentPage('/Sales/POS') }">
-                                <router-link
-                                    to="/Sales/POS"
-                                    class="waves-effect"
-                                >
-                                    Make Sale (POS)
-                                </router-link>
-                            </li>
-
-                            <li>
-                                <router-link
-                                    to="/coming-soon"
-                                    class="waves-effect"
-                                >
-                                    Open Bills
-                                </router-link>
-                            </li>
-
-                            <li>
-                                <router-link
-                                    to="/coming-soon"
-                                    class="waves-effect"
-                                >
-                                    Quotations
-                                </router-link>
-                            </li>
-
-                            <li>
-                                <router-link
-                                    to="/coming-soon"
-                                    class="waves-effect"
-                                >
-                                    Credit Note
-                                </router-link>
-                            </li>
-
-                        </ul>
-
-                    </li>
-
-
-                    <!-- ========================= -->
-                    <!-- MEDIA GALLERY -->
-                    <!-- ========================= -->
-
-                    <li
-                        :class="{
-                            'mm-active': isActiveParent([
-                                '/gallery/view',
-                                '/gallery/upload',
-                                '/gallery/categories'
-                            ])
-                        }"
-                    >
-
-                        <a
-                            href="javascript: void(0);"
-                            class="waves-effect has-arrow"
-                        >
-                            <Icon
-                                :icon="isActiveParent([
-                                    '/gallery/view',
-                                    '/gallery/upload',
-                                    '/gallery/categories'
-                                ])
-                                    ? 'ri:image-2-fill'
-                                    : 'ri:image-2-line'"
-                                class="menu-icon"
-                            />
-
-                            <span>Media Gallery</span>
-                        </a>
-
-                        <ul class="sub-menu" aria-expanded="false">
-
-                            <li :class="{ active: isCurrentPage('/gallery/view') }">
-                                <router-link
-                                    to="/gallery/view"
-                                    class="waves-effect"
-                                >
-                                    Media Library
-                                </router-link>
-                            </li>
-
-                            <li :class="{ active: isCurrentPage('/gallery/upload') }">
-                                <router-link
-                                    to="/gallery/upload"
-                                    class="waves-effect"
-                                >
-                                    Upload Media
-                                </router-link>
-                            </li>
-
-                            <li :class="{ active: isCurrentPage('/gallery/categories') }">
-                                <router-link
-                                    to="/gallery/categories"
-                                    class="waves-effect"
-                                >
-                                    Media Categories
-                                </router-link>
-                            </li>
-
-                        </ul>
-
-                    </li>
-
-
-                    <!-- ========================= -->
-                    <!-- FILE MANAGER -->
-                    <!-- ========================= -->
-
-                    <li
-                        :class="{
-                            'mm-active': isActiveParent([
-                                '/file-manager',
-                                '/file-manager/file-new'
-                            ])
-                        }"
-                    >
-
-                        <a
-                            href="javascript: void(0);"
-                            class="waves-effect has-arrow"
-                        >
-                            <Icon
-                                :icon="isActiveParent([
-                                    '/file-manager',
-                                    '/file-manager/file-new'
-                                ])
-                                    ? 'ri:folder-3-fill'
-                                    : 'ri:folder-3-line'"
-                                class="menu-icon"
-                            />
-
-                            <span>File Manager</span>
-                        </a>
-
-                        <ul class="sub-menu" aria-expanded="false">
-
-                            <li :class="{ active: isCurrentPage('/file-manager') }">
-                                <router-link
-                                    to="/file-manager"
-                                    class="waves-effect"
-                                >
-                                    Files Library
-                                </router-link>
-                            </li>
-
-                            <li :class="{ active: isCurrentPage('/file-manager/file-new') }">
-                                <router-link
-                                    to="/file-manager/file-new"
-                                    class="waves-effect"
-                                >
-                                    Upload File
-                                </router-link>
-                            </li>
-
-                        </ul>
-
-                    </li>
-
-
-                  
-
-                    <li class="menu-title" key="t-apps">Reports</li>
-
-
-                    <!-- ========================= -->
-                    <!-- PRODUCT SALES -->
-                    <!-- ========================= -->
-
-                    <li
-                        :class="{
-                            'mm-active': isActiveParent(['/coming-soon'])
-                        }"
-                    >
-
-                        <a
-                            href="javascript: void(0);"
-                            class="waves-effect has-arrow"
-                        >
-                            <Icon
-                                :icon="isActiveParent(['/coming-soon'])
-                                    ? 'ri:shopping-cart-2-fill'
-                                    : 'ri:shopping-cart-2-line'"
-                                class="menu-icon"
-                            />
-
-                            <span>Product Sales</span>
-                        </a>
-
-                        <ul class="sub-menu" aria-expanded="false">
-
-                            <li>
-                                <router-link
-                                    to="/coming-soon"
-                                    class="waves-effect"
-                                >
-                                    Sales Reports
-                                </router-link>
-                            </li>
-
-                            <li>
-                                <router-link
-                                    to="/coming-soon"
-                                    class="waves-effect"
-                                >
-                                    Pending Payments
-                                </router-link>
-                            </li>
-
-                            <li>
-                                <router-link
-                                    to="/coming-soon"
-                                    class="waves-effect"
-                                >
-                                    Product Performance
-                                </router-link>
-                            </li>
-
-                        </ul>
-
-                    </li>
-
-
-                    <!-- ========================= -->
-                    <!-- CASHIER SALES REPORTS -->
-                    <!-- ========================= -->
-
-                    <li :class="{ active: isActive('/coming-soon') }">
-
-                        <router-link
-                            to="/coming-soon"
-                            class="waves-effect"
-                            :class="{ active: isActive('/coming-soon') }"
-                        >
-                            <Icon
-                                :icon="isActive('/coming-soon')
-                                    ? 'ri:money-dollar-box-fill'
-                                    : 'ri:money-dollar-box-line'"
-                                class="menu-icon"
-                            />
-
-                            <span>Cashier Sales Reports</span>
-                        </router-link>
-
-                    </li>
-
-
-                    <!-- ========================= -->
-                    <!-- STOCK MOVEMENT -->
-                    <!-- ========================= -->
-
-                    <li
-                        :class="{
-                            'mm-active': isActiveParent(['/coming-soon'])
-                        }"
-                    >
-
-                        <a
-                            href="javascript: void(0);"
-                            class="waves-effect has-arrow"
-                        >
-                            <Icon
-                                :icon="isActiveParent(['/coming-soon'])
-                                    ? 'ri:store-2-fill'
-                                    : 'ri:store-2-line'"
-                                class="menu-icon"
-                            />
-
-                            <span>Stock Movement</span>
-                        </a>
-
-                        <ul class="sub-menu" aria-expanded="false">
-
-                            <li>
-                                <router-link
-                                    to="/coming-soon"
-                                    class="waves-effect"
-                                >
-                                    Materials/Ingredients Stk
-                                </router-link>
-                            </li>
-
-                            <li>
-                                <router-link
-                                    to="/coming-soon"
-                                    class="waves-effect"
-                                >
-                                    Products Stock
-                                </router-link>
-                            </li>
-
-                        </ul>
-
-                    </li>
-
-
-                    <!-- ========================= -->
-                    <!-- CLIENTS REGISTER -->
-                    <!-- ========================= -->
-
-                    <li :class="{ active: isActive('/coming-soon') }">
-
-                        <router-link
-                            to="/coming-soon"
-                            class="waves-effect"
-                            :class="{ active: isActive('/coming-soon') }"
-                        >
-                            <Icon
-                                :icon="isActive('/coming-soon')
-                                    ? 'ri:group-2-fill'
-                                    : 'ri:group-2-line'"
-                                class="menu-icon"
-                            />
-
-                            <span>Clients Register</span>
-                        </router-link>
-
-                    </li>
-
-
-                    <hr>
-
-
-                    <!-- ========================= -->
-                    <!-- MESSENGER -->
-                    <!-- ========================= -->
-
-                    <li class="menu-title" key="t-apps">Messenger</li>
-
-
-                    <!-- Compose Message -->
-
-                    <li>
-
-                        <a
-                            href="javascript: void(0);"
-                            class="waves-effect write-msg-btn"
-                            @click="onComposeClick"
-                        >
-                            <Icon
-                                icon="ri:edit-2-line"
-                                class="menu-icon"
-                            />
-
-                            <span>Compose Message</span>
-                        </a>
-
-                    </li>
-
-
-                    <!-- Sent Messages -->
-
-                    <li :class="{ active: isActive('/coming-soon') }">
-
-                        <router-link
-                            to="/coming-soon"
-                            class="waves-effect"
-                            :class="{ active: isActive('/coming-soon') }"
-                        >
-                            <Icon
-                                :icon="isActive('/coming-soon')
-                                    ? 'ri:mail-send-fill'
-                                    : 'ri:mail-send-line'"
-                                class="menu-icon"
-                            />
-
-                            <span>Sent Messages</span>
-                        </router-link>
-
-                    </li>
-
-
-                    <!-- Address Book -->
-
-                    <li
-                        :class="{
-                            'mm-active': isActiveParent(['/coming-soon'])
-                        }"
-                    >
-
-                        <a
-                            href="javascript: void(0);"
-                            class="waves-effect has-arrow"
-                        >
-                            <Icon
-                                :icon="isActiveParent(['/coming-soon'])
-                                    ? 'ri:contacts-fill'
-                                    : 'ri:contacts-line'"
-                                class="menu-icon"
-                            />
-
-                            <span>Address Book</span>
-                        </a>
-
-                        <ul class="sub-menu" aria-expanded="false">
-
-                            <li>
-
-                                <a
-                                    href="#"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#add-contact"
-                                    class="btn btn-info text-center mx-4 px-3 text-white mb-3"
-                                >
-                                    <Icon
-                                        icon="ri:user-add-line"
-                                        class="menu-icon text-white"
-                                    />
-
-                                    Add Contact
-                                </a>
-
-                            </li>
-
-                            <li>
-                                <router-link
-                                    to="/coming-soon"
-                                    class="waves-effect"
-                                >
-                                    Contact Book list
-                                </router-link>
-                            </li>
-
-                        </ul>
-
-                    </li>
-
-
-                    <hr>
-
-
-                    <!-- ========================= -->
-                    <!-- SITE IDENTITY -->
-                    <!-- ========================= -->
-
-                    <li :class="{ active: isActive('/site-identity') }">
-
-                        <router-link
-                            to="/site-identity"
-                            class="waves-effect"
-                            :class="{ active: isActive('/site-identity') }"
-                        >
-                            <Icon
-                                :icon="isActive('/site-identity')
-                                    ? 'ri:building-4-fill'
-                                    : 'ri:building-4-line'"
-                                class="menu-icon"
-                            />
-
-                            <span>Site Identity</span>
-                        </router-link>
-
-                    </li>
-
-
-                    <!-- ========================= -->
-                    <!-- SETTINGS -->
-                    <!-- ========================= -->
-
-                    <li :class="{ active: isActive('/coming-soon') }">
-
-                        <router-link
-                            to="/coming-soon"
-                            class="waves-effect"
-                            :class="{ active: isActive('/coming-soon') }"
-                        >
-                            <Icon
-                                :icon="isActive('/coming-soon')
-                                    ? 'ri:settings-3-fill'
-                                    : 'ri:settings-3-line'"
-                                class="menu-icon"
-                            />
-
-                            <span>Settings</span>
-                        </router-link>
-
-                    </li>
-
-
-                    <!-- ========================= -->
-                    <!-- SYSTEM USERS -->
-                    <!-- ========================= -->
-
-                    <li
-                        :class="{
-                            'mm-active': isActiveParent([
-                                '/users/list',
-                                '/users/register'
-                            ])
-                        }"
-                    >
-
-                        <a
-                            href="javascript:void(0);"
-                            class="waves-effect has-arrow"
-                        >
-                            <Icon
-                                :icon="isActiveParent([
-                                    '/users/list',
-                                    '/users/register'
-                                ])
-                                    ? 'heroicons:users-solid'
-                                    : 'humbleicons:users'"
-                                class="menu-icon"
-                            />
-
-                            <span>System Users</span>
-                        </a>
-
-                        <ul class="sub-menu" aria-expanded="false">
-
-                            <li :class="{ active: isCurrentPage('/users/list') }">
-                                <router-link
-                                    to="/users/list"
-                                    class="waves-effect"
-                                >
-                                    System Users
-                                </router-link>
-                            </li>
-
-                            <li :class="{ active: isCurrentPage('/users/register') }">
-                                <router-link
-                                    to="/users/register"
-                                    class="waves-effect"
-                                >
-                                    Add a System User
-                                </router-link>
-                            </li>
-
-                        </ul>
-
-                    </li>
+                                <Icon
+                                    :icon="iconFor(item, isActive(item.to))"
+                                    class="menu-icon"
+                                />
+                                <span>{{ item.label }}</span>
+                            </router-link>
+
+                            <!-- An entry with no `to` triggers a handler instead -->
+                            <a
+                                v-else
+                                href="#"
+                                class="waves-effect"
+                                @click.prevent="onComposeClick"
+                            >
+                                <Icon :icon="item.icon" class="menu-icon" />
+                                <span>{{ item.label }}</span>
+                            </a>
+
+                        </li>
+
+                    </template>
 
                 </ul>
 
@@ -1052,88 +137,102 @@ import {
     onMounted,
     onBeforeUnmount,
     nextTick,
-    ref,
     watch
 } from 'vue';
 
+import { useAuthStore } from '@/stores/auth';
+import adminMenu from '@/nav/adminMenu';
 
+// ------------------------------------------------------------
+// State
+// ------------------------------------------------------------
 
-import AUTH from '@/api/auth'
-import { useAuthStore } from '@/stores/auth'
-
-// Components
-import LoaderVue from '@/layouts/Loader.vue'
-import SkeletonLoader from '@/components/Loaders/SkeletonLoader.vue'
-import DataViewToggle from '@/components/Data-tools/Data.View.Toggle.vue'
-
-// Utils
-import {
-    formatDateTime,
-    smartDate
-} from '@/utils/dates'
-
-
-// ======================================================
-// Page state
-// ======================================================
-
-const isLoading = ref(true)
-
-const authStore = useAuthStore()
-const menuPermissions = ref([])
-const sideMenuLinks = ref([])
-
-
-
+const authStore = useAuthStore();
 const route = useRoute();
-
-
-// Reactive current path
 
 const currentPath = computed(() => route.path);
 
-
-// Helper: exact route match
-
-const isActive = (path) => {
-    return currentPath.value === path;
-};
+// Login already returns this list (the backend puts permissions in the same
+// `user` object as first_name/last_name) and initFromLocalStorage restores that
+// whole object on refresh — so there is nothing to fetch here.
+const myPermissions = computed(() => authStore.user?.permissions ?? []);
 
 
-// Helper: route match for sub-menu items
+// ------------------------------------------------------------
+// Permission check
+// ------------------------------------------------------------
 
-const isCurrentPage = (page) => {
+/**
+ * null / missing  → no gate, everyone signed in may see it.
+ * an array        → ANY of, via some().
+ *
+ * `some()` is not a detail: the backend's EnsureAdminPermission middleware
+ * passes when an admin holds at least one of the listed permissions. Using
+ * `every()` here would make the menu stricter than the API — a finance admin
+ * holding only tenants.suspend could fetch the tenant list in Postman but
+ * would not be offered the link.
+ */
+function can(perms) {
+    if (!perms) return true;
+    return perms.some((p) => myPermissions.value.includes(p));
+}
 
-    if (page.startsWith('/')) {
-        return currentPath.value === page;
-    }
+/**
+ * The menu, filtered down to what this admin may see.
+ *
+ * Headings and dividers always survive — they are decoration, not access. A
+ * group survives if ANY child is visible, so a collapsed section never opens
+ * onto nothing.
+ */
+const menu = computed(() =>
 
-    // legacy .html paths fallback
-    return currentPath.value.includes(page);
-};
+    adminMenu
+        .filter((item) => {
+
+            if (item.heading || item.divider) return true;
+
+            if (can(item.permissions)) return true;
+
+            return item.children?.some((c) => can(c.permissions));
+
+        })
+        .map((item) =>
+            item.children
+                ? { ...item, children: item.children.filter((c) => can(c.permissions)) }
+                : item
+        )
+);
 
 
-// Helper: parent menu active when any child route matches
+// ------------------------------------------------------------
+// Active state
+// ------------------------------------------------------------
 
-const isActiveParent = (childPages) => {
+// Exact match on a leaf.
+const isActive = (to) => Boolean(to) && currentPath.value === to;
 
-    return childPages.some(page => {
+/**
+ * A group highlights when the current path is one of its own children.
+ * Derived from the children rather than a hand-written list of paths, so
+ * adding a leaf to the array cannot leave its group failing to highlight.
+ */
+const isGroupActive = (item) =>
+    Boolean(item.children?.some((c) => c.to && c.to === currentPath.value));
 
-        if (page.startsWith('/')) {
-            return currentPath.value === page;
-        }
-
-        return isCurrentPage(page);
-
-    });
-
-};
+// Fall back to the single icon for entries with no active-state variant.
+const iconFor = (item, active) =>
+    (active ? item.iconActive ?? item.icon : item.icon);
 
 
-// ----------------------------
-// Initialize MetisMenu
-// ----------------------------
+// ------------------------------------------------------------
+// MetisMenu (jQuery)
+// ------------------------------------------------------------
 
+/**
+ * MetisMenu is a jQuery plugin that toggles mm-active / mm-show itself. It
+ * knows nothing about Vue, so this is the one place that has to be told when
+ * the markup changed.
+ */
 const initMetisMenu = () => {
 
     const menuEl = document.getElementById('side-menu');
@@ -1144,14 +243,13 @@ const initMetisMenu = () => {
 
         try {
 
-            // Dispose previous instance if any
-            // avoids double-binding
-
+            // Dispose first. main.js re-initialises on every afterEach, and
+            // binding twice makes open/close fire twice per click.
             window.jQuery(menuEl).metisMenu('dispose');
 
         } catch (e) {
 
-            // No previous instance — that's fine
+            // Nothing was bound — that is fine.
 
         }
 
@@ -1159,26 +257,18 @@ const initMetisMenu = () => {
 
     } else {
 
-        // jQuery/MetisMenu not loaded yet — retry shortly
-
+        // Scripts load async in main.js, so jQuery may not be here yet.
         setTimeout(initMetisMenu, 100);
 
     }
 
 };
 
-async function loadPermissions() {
-  isLoading.value = true
-  try {
-    // Prefer the store: login already gave us this, and it survives a refresh.
-    menuPermissions.value = authStore.user?.permissions ?? []
-  } catch (e) {
-    console.error('Could not read admin permissions', e)
-  } finally {
-    isLoading.value = false
-  }
-}
-
+/**
+ * Without this, a permission arriving after mount leaves MetisMenu's classes
+ * stale and an already-open group stops animating.
+ */
+watch(menu, () => nextTick(initMetisMenu));
 
 onMounted(() => {
 
@@ -1188,10 +278,7 @@ onMounted(() => {
 
     });
 
-    loadPermissions()
-
 });
-
 
 onBeforeUnmount(() => {
 
@@ -1218,11 +305,14 @@ onBeforeUnmount(() => {
 });
 
 
-// Click handler for Compose Message
+// ------------------------------------------------------------
+// Actions
+// ------------------------------------------------------------
 
+// The compose offcanvas is mounted globally in App.vue, so it is already in the
+// DOM and this only has to trigger it. "Add Contact" needs its own handler —
+// it was a data-bs-target for a modal that does not exist.
 const onComposeClick = () => {
-
-    // Hook up your compose modal / action here
 
     console.log('Compose clicked');
 

@@ -1,65 +1,38 @@
 /**
- * Admin console sidebar.
+ * Admin console sidebar — the single source of truth for the menu.
  *
- * One source of truth for the menu. Every `permissions` string here is copied
- * verbatim from the backend's AdminRolesAndPermissionsSeeder — this file does
- * not invent policy, it only says which label sits behind which permission.
+ * SHAPE OF AN ENTRY
  *
- * Rules this array follows, and why:
+ *   Leaf    { label, to, icon, iconActive, permissions }
+ *   Group   { label, icon, iconActive, children: [...] }
+ *   Heading { heading: true, label }        → a menu-title divider
+ *   Rule    { divider: true }              → a horizontal <hr>
  *
- *  - `permissions` is ANY-OF, not all-of. `EnsureAdminPermission` passes when an
- *    admin holds one of the listed permissions, so the filter must use `some()`.
- *    Writing ['tenants.suspend', 'tenants.update'] here does NOT mean "both".
+ * THE ONE RULE THAT MATTERS: `permissions` is ANY-OF, not all-of.
  *
- *  - A leaf repeats its parent's permission rather than inheriting it. An item
- *    that inherits is an item that can appear on its own — in a search box, a
- *    command palette, a breadcrumb — without the thing it belongs to.
+ * The backend's EnsureAdminPermission middleware passes when an admin holds at
+ * least one of the listed permissions. So ['leads.view', 'leads.manage'] means
+ * "either", and the filter must use some(). Reading it as "both" would make the
+ * menu stricter than the API, which is the mistake AGENTS.md warns about when
+ * grouping several verbs into one middleware string.
  *
- *  - `permissions: null` means "no permission gate", which is a decision and not
- *    an omission. It is only correct where the backend really has no gate, and
- *    every such item is listed in the review notes at the bottom of this file.
- *
- *  - `hidden: true` is the old `d-none` from the hand-written markup: kept in
- *    the file rather than deleted, because "we know about it and it is not ready"
- *    is information. Nothing renders it until the flag comes off.
- *
- *  - `action: true` marks a control that is not a navigation target. It opens
- *    something (a modal, an offcanvas) instead of changing route.
+ * `permissions: null` is a decision, not an omission — it means the backend
+ * genuinely has no gate on that item, so everyone signed in may see it.
  */
 
-/** Permission strings, named so a typo is a missing import rather than a typo in a string. */
-export const PERMISSIONS = {
-  TENANTS_VIEW: 'tenants.view',
-  TENANTS_CREATE: 'tenants.create',
-  TENANTS_UPDATE: 'tenants.update',
-  TENANTS_SUSPEND: 'tenants.suspend',
-  CATALOGUE_VIEW: 'catalogue.view',
-  CATALOGUE_MANAGE: 'catalogue.manage',
-  LEADS_VIEW: 'leads.view',
-  LEADS_MANAGE: 'leads.manage',
-  AREAS_APPROVE: 'areas.approve',
-  GEOGRAPHY_MANAGE: 'geography.manage',
-  BANKS_VIEW: 'banks.view',
-  BANKS_MANAGE: 'banks.manage',
-  TEAM_VIEW: 'team.view',
-  TEAM_MANAGE: 'team.manage',
-  // Seeded but with no endpoint behind them, so no item may be gated on these:
-  // SUPPORT_ACCESS: 'support.access',
-  // BILLING_VIEW: 'billing.view',
-  // BILLING_MANAGE: 'billing.manage',
-  // AUDIT_VIEW: 'audit.view',
-};
-
 export default [
-  // ── Platform administration ───────────────────────────────────────────────
-  { heading: true, label: 'Platform Administration' },
 
+  // ── Platform administration ──────────────────────────────────────────────
+
+ // { heading: true, label: 'Platform Administration' },
+
+  // Every signed-in admin may see the launcher, so no gate. Note this page has
+  // no backend behind it yet — it renders module cards, not stats.
   {
     label: 'Overview',
     to: '/',
     icon: 'boxicons:dashboard-alt',
     iconActive: 'boxicons:dashboard-alt-filled',
-    // No gate: every signed-in admin may see the launcher.
     permissions: null,
   },
 
@@ -71,19 +44,15 @@ export default [
     permissions: null,
   },
 
+  // All four tenants.* because GET /tenants is OR-gated across them in
+  // routes/api.php. Gating on 'tenants.view' alone would hide a list this admin
+  // is genuinely allowed to fetch.
   {
     label: 'Tenants',
     to: '/tenants',
-    icon: 'ri:building-2-line',
-    iconActive: 'ri:building-2-fill',
-    // The API's read routes are OR-gated across all four tenants.* permissions,
-    // so a stricter check here would hide a list this admin may actually fetch.
-    permissions: [
-      PERMISSIONS.TENANTS_VIEW,
-      PERMISSIONS.TENANTS_CREATE,
-      PERMISSIONS.TENANTS_UPDATE,
-      PERMISSIONS.TENANTS_SUSPEND,
-    ],
+    icon: 'ri:store-2-line',
+    iconActive: 'ri:store-2-fill',
+    permissions: ['tenants.view', 'tenants.create', 'tenants.update', 'tenants.suspend'],
   },
 
   {
@@ -91,37 +60,39 @@ export default [
     to: '/tenants/onboard',
     icon: 'carbon:add-alt',
     iconActive: 'carbon:add-filled',
-    permissions: [PERMISSIONS.TENANTS_CREATE],
+    permissions: ['tenants.create'],
   },
+  { divider: true },
+
+   { heading: true, label: 'Refrencences' },
 
   {
     label: 'Product Catalogue',
     to: '/catalogue',
     icon: 'ri:price-tag-3-line',
     iconActive: 'ri:price-tag-3-fill',
-    permissions: [PERMISSIONS.CATALOGUE_VIEW, PERMISSIONS.CATALOGUE_MANAGE],
+    permissions: ['catalogue.view', 'catalogue.manage'],
   },
 
+  // Geography corrections only. The area approval queue is a separate
+  // permission (areas.approve) and deliberately has no item here — see the
+  // note at the bottom of this file.
   {
-    // NOTE: this is only the geography corrections screen. The area approval
-    // queue is a separate permission (areas.approve) and has no item here yet —
-    // see the review notes.
     label: 'Locations',
     to: '/reference/geography',
     icon: 'ri:map-pin-2-line',
     iconActive: 'ri:map-pin-2-fill',
-    permissions: [PERMISSIONS.GEOGRAPHY_MANAGE],
+    permissions: ['geography.manage'],
   },
 
+  // UNRESOLVED: no known permission or endpoint. Left ungated so it shows for
+  // everyone until it is decided what this screen is.
   {
-    // Unresolved: it is not clear which permission or which endpoint this is.
-    // Left ungated and flagged rather than guessed at.
     label: 'Business Registry',
     to: '/business-registry',
     icon: 'fluent:briefcase-32-regular',
     iconActive: 'fluent:briefcase-32-filled',
     permissions: null,
-    needsDecision: true,
   },
 
   {
@@ -129,7 +100,7 @@ export default [
     to: '/leads',
     icon: 'boxicons:search-plus',
     iconActive: 'boxicons:search-plus-filled',
-    permissions: [PERMISSIONS.LEADS_VIEW, PERMISSIONS.LEADS_MANAGE],
+    permissions: ['leads.view', 'leads.manage'],
   },
 
   {
@@ -137,33 +108,52 @@ export default [
     to: '/reference/banks',
     icon: 'ri:bank-line',
     iconActive: 'ri:bank-fill',
-    permissions: [PERMISSIONS.BANKS_VIEW, PERMISSIONS.BANKS_MANAGE],
+    permissions: ['banks.view', 'banks.manage'],
   },
 
-  // ── Facilities (HMIS) ─────────────────────────────────────────────────────
+  // Separator between the platform sections and the leftovers below.
+  { divider: true },
+
+  // ═══════════════════════════════════════════════════════════════════════
+  // EVERYTHING BELOW THIS LINE HAS NO BACKEND BEHIND IT.
+  //
+  // These routes exist in the router but have no Laravel tables or endpoints.
+  // They split into three groups, and each wants a different decision:
+  //
+  //   HMIS/health   — /facilities*, Clinical Services, ICD, Insurers, SHA
+  //   Website CMS   — Blog, Partners, Media Gallery, File Manager, Site Identity
+  //   Tenant POS    — Inventory, Sales, Menu, invoice templates
+  //
+  // They are kept here rather than deleted so the migration is one decision
+  // rather than thirty dead links. Say the word and the whole block goes.
+  // ═══════════════════════════════════════════════════════════════════════
+
+  // ── HMIS leftovers ───────────────────────────────────────────────────────
+
   {
+    permissions: ['hide'],
     label: 'Facilities',
     icon: 'ri:hospital-line',
     iconActive: 'ri:hospital-fill',
-    groupIsDead: true,
     children: [
-      { label: 'Add Facility', to: '/facilities/add', permissions: null },
-      { label: 'Onboarded Facilities', to: '/facilities', permissions: null },
-      { label: 'Subscriptions Plans', to: '/facilities/subscriptions', permissions: null },
+      { label: 'Add Facility', to: '/facilities/add' },
+      { label: 'Onboarded Facilities', to: '/facilities' },
+      { label: 'Subscriptions Plans', to: '/facilities/subscriptions' },
     ],
+     
   },
 
-  // ── Website CMS ───────────────────────────────────────────────────────────
+  // ── Website CMS ──────────────────────────────────────────────────────────
+
   {
     label: 'Blog posts',
     icon: 'ri:article-line',
     iconActive: 'ri:article-fill',
-    groupIsDead: true,
     children: [
-      { label: 'All Articles', to: '/blogs', permissions: null },
-      { label: 'Create Article', to: '/newArticle', permissions: null },
-      { label: 'Categories', to: '/blog/categories', permissions: null, hidden: true },
-      { label: 'Tags', to: '/blog/tags', permissions: null, hidden: true },
+      { label: 'All Articles', to: '/blogs' },
+      { label: 'Create Article', to: '/newArticle' },
+      { label: 'Categories', to: '/blog/categories' },
+      { label: 'Tags', to: '/blog/tags' },
     ],
   },
 
@@ -171,23 +161,21 @@ export default [
     label: 'Our Partners',
     icon: 'ri:building-2-line',
     iconActive: 'ri:building-2-fill',
-    groupIsDead: true,
     children: [
-      { label: 'All Partners', to: '/partners/list', permissions: null },
-      { label: 'Add Partner', to: '/partners/add', permissions: null },
+      { label: 'All Partners', to: '/partners/list' },
+      { label: 'Add Partner', to: '/partners/add' },
     ],
   },
+
+  // ── Tenant POS — belongs in the tenant-facing app, not the console ──────
 
   {
     label: 'Inventory',
     icon: 'ri:archive-line',
     iconActive: 'ri:archive-fill',
-    // Tenant-facing POS, not platform console work. Kept only to keep the
-    // migration visible; see the review notes.
-    groupIsDead: true,
     children: [
-      { label: 'Products & Services', to: '/POS-Manager/inventory', permissions: null },
-      { label: 'Add Item', to: '/POS-Manager/new-product', permissions: null },
+      { label: 'Products & Services', to: '/POS-Manager/inventory' },
+      { label: 'Add Item', to: '/POS-Manager/new-product' },
     ],
   },
 
@@ -195,25 +183,27 @@ export default [
     label: 'Sales',
     icon: 'ri:receipt-line',
     iconActive: 'ri:receipt-fill',
-    groupIsDead: true,
     children: [
-      { label: 'View Sales', to: '/MenuProducts', permissions: null },
-      { label: 'Make Sale (POS)', to: '/Sales/POS', permissions: null },
-      { label: 'Open Bills', to: '/coming-soon', permissions: null },
-      { label: 'Quotations', to: '/coming-soon', permissions: null },
-      { label: 'Credit Note', to: '/coming-soon', permissions: null },
+      { label: 'View Sales', to: '/MenuProducts' },
+      { label: 'Make Sale (POS)', to: '/Sales/POS' },
+      { label: 'Open Bills', to: '/coming-soon' },
+      { label: 'Quotations', to: '/coming-soon' },
+      { label: 'Credit Note', to: '/coming-soon' },
     ],
   },
+
+  
+
+  // ── Website CMS, continued ───────────────────────────────────────────────
 
   {
     label: 'Media Gallery',
     icon: 'ri:image-2-line',
     iconActive: 'ri:image-2-fill',
-    groupIsDead: true,
     children: [
-      { label: 'Media Library', to: '/gallery/view', permissions: null },
-      { label: 'Upload Media', to: '/gallery/upload', permissions: null },
-      { label: 'Media Categories', to: '/gallery/categories', permissions: null },
+      { label: 'Media Library', to: '/gallery/view' },
+      { label: 'Upload Media', to: '/gallery/upload' },
+      { label: 'Media Categories', to: '/gallery/categories' },
     ],
   },
 
@@ -221,25 +211,26 @@ export default [
     label: 'File Manager',
     icon: 'ri:folder-3-line',
     iconActive: 'ri:folder-3-fill',
-    groupIsDead: true,
     children: [
-      { label: 'Files Library', to: '/file-manager', permissions: null },
-      { label: 'Upload File', to: '/file-manager/file-new', permissions: null },
+      { label: 'Files Library', to: '/file-manager' },
+      { label: 'Upload File', to: '/file-manager/file-new' },
     ],
   },
 
-  // ── Reports ───────────────────────────────────────────────────────────────
+  // ── Reports ──────────────────────────────────────────────────────────────
+
   { heading: true, label: 'Reports' },
 
+  // Every item in this section points at /coming-soon, which is not a
+  // registered route — they all land on the 404. This section is a wish list.
   {
     label: 'Product Sales',
     icon: 'ri:shopping-cart-2-line',
     iconActive: 'ri:shopping-cart-2-fill',
-    groupIsDead: true,
     children: [
-      { label: 'Sales Reports', to: '/coming-soon', permissions: null },
-      { label: 'Pending Payments', to: '/coming-soon', permissions: null },
-      { label: 'Product Performance', to: '/coming-soon', permissions: null },
+      { label: 'Sales Reports', to: '/coming-soon' },
+      { label: 'Pending Payments', to: '/coming-soon' },
+      { label: 'Product Performance', to: '/coming-soon' },
     ],
   },
 
@@ -248,18 +239,15 @@ export default [
     to: '/coming-soon',
     icon: 'ri:money-dollar-box-line',
     iconActive: 'ri:money-dollar-box-fill',
-    permissions: null,
-    groupIsDead: true,
   },
 
   {
     label: 'Stock Movement',
     icon: 'ri:store-2-line',
     iconActive: 'ri:store-2-fill',
-    groupIsDead: true,
     children: [
-      { label: 'Materials/Ingredients Stk', to: '/coming-soon', permissions: null },
-      { label: 'Products Stock', to: '/coming-soon', permissions: null },
+      { label: 'Materials/Ingredients Stk', to: '/coming-soon' },
+      { label: 'Products Stock', to: '/coming-soon' },
     ],
   },
 
@@ -268,20 +256,20 @@ export default [
     to: '/coming-soon',
     icon: 'ri:group-2-line',
     iconActive: 'ri:group-2-fill',
-    permissions: null,
-    groupIsDead: true,
   },
 
-  // ── Messenger ─────────────────────────────────────────────────────────────
-  { heading: true, label: 'Messenger' },
+  // ── Messenger ────────────────────────────────────────────────────────────
 
+  { heading: true, label: 'Messenger',permissions: ['hide'], },
+
+  // to: null → renders an <a> with a click handler instead of a router-link.
+  // The compose offcanvas is mounted globally in App.vue, so it is already in
+  // the DOM and this control only has to open it.
   {
-    // Opens the compose offcanvas rather than navigating. The composer is
-    // mounted globally in App.vue, so it is already in the DOM.
     label: 'Compose Message',
     icon: 'ri:edit-2-line',
-    action: 'compose-message',
-    permissions: null,
+    to: null,
+    permissions: ['hide'],
   },
 
   {
@@ -289,30 +277,29 @@ export default [
     to: '/coming-soon',
     icon: 'ri:mail-send-line',
     iconActive: 'ri:mail-send-fill',
-    permissions: null,
-    groupIsDead: true,
+     permissions: ['hide'],
   },
 
   {
     label: 'Address Book',
     icon: 'ri:contacts-line',
     iconActive: 'ri:contacts-fill',
-    groupIsDead: true,
     children: [
-      // data-bs-target="#add-contact" — that modal does not exist in the DOM.
-      { label: 'Add Contact', action: 'add-contact', permissions: null, needsDecision: true },
-      { label: 'Contact Book list', to: '/coming-soon', permissions: null },
+      // Was data-bs-target="#add-contact". That modal does not exist in the DOM,
+      // so this needs its own handler before it does anything.
+      { label: 'Add Contact', to: null },
+      { label: 'Contact Book list', to: '/coming-soon' },
     ],
+    permissions: ['hide'],
   },
 
-  // ── Platform ──────────────────────────────────────────────────────────────
+  // ── Platform ─────────────────────────────────────────────────────────────
+
   {
     label: 'Site Identity',
     to: '/site-identity',
     icon: 'ri:building-4-line',
     iconActive: 'ri:building-4-fill',
-    permissions: null,
-    groupIsDead: true,
   },
 
   {
@@ -320,43 +307,49 @@ export default [
     to: '/coming-soon',
     icon: 'ri:settings-3-line',
     iconActive: 'ri:settings-3-fill',
-    permissions: null,
-    groupIsDead: true,
   },
 
+  // Gated on team.* now, where it used to be open to everyone. That is a
+  // behaviour change: support and finance admins lose the item. It matches the
+  // API, which has been refusing them all along, so the menu was lying before.
   {
     label: 'System Users',
     icon: 'humbleicons:users',
     iconActive: 'heroicons:users-solid',
-    // This is the platform team, so it is gated on team.* — not left open.
-    permissions: [PERMISSIONS.TEAM_VIEW, PERMISSIONS.TEAM_MANAGE],
+    permissions: ['team.view', 'team.manage'],
     children: [
-      { label: 'System Users', to: '/team', permissions: [PERMISSIONS.TEAM_VIEW, PERMISSIONS.TEAM_MANAGE] },
-      { label: 'Add a System User', to: '/team/invite', permissions: [PERMISSIONS.TEAM_MANAGE] },
+      // Each leaf repeats its permission rather than inheriting it. An item
+      // that inherits can appear on its own — in a search box, a breadcrumb —
+      // without the group it belongs to.
+      {
+        label: 'System Users',
+        to: '/team',
+        permissions: ['team.view', 'team.manage'],
+      },
+      {
+        label: 'Add a System User',
+        to: '/team/invite',
+        permissions: ['team.manage'],
+      },
     ],
   },
+
 ];
 
 /*
- * REVIEW NOTES — things this array cannot decide, in the order they will bite.
+ * ── Still to decide ────────────────────────────────────────────────────────
  *
- * 1. "Business Registry" has no known permission or endpoint. Ask what it is
- *    before gating it; it is currently ungated, so every admin sees it.
+ * 1. "Business Registry" — no known permission or endpoint. Ungated, so every
+ *    admin sees it.
  *
- * 2. "Locations" covers only geography corrections (geography.manage). The area
- *    approval queue is `areas.approve` and has no item. A single "Areas" screen
- *    offering Verify to someone who cannot press it is the trap to avoid, so the
- *    two want separate items: /reference/geography and /reference/areas.
+ * 2. Area approvals. `areas.approve` has no menu item. It wants to be its own
+ *    screen at /reference/areas rather than a tab on "Locations", because
+ *    geography.manage can add and rename while only areas.approve can verify —
+ *    one combined page would offer a Verify button to someone who cannot press it.
  *
- * 3. `groupIsDead: true` marks every group whose routes have no backend behind
- *    them — the HMIS/health group and the website CMS group. Nothing reads this
- *    flag; it exists so they can be deleted in one pass when the decision lands,
- *    rather than one dead link at a time.
+ * 3. The four dead groups above. Also POS: it belongs in the tenant-facing app
+ *    and per PROJECT-GUIDE §5.5 it is not built.
  *
- * 4. "System Users" was ungated before. It is now team.view/team.manage, which
- *    is a behaviour change: a support or finance admin will no longer see it.
- *    That matches the API, which has been refusing them all along.
- *
- * 5. Every `to: '/coming-soon'` is a route that does not exist and lands on the
- *    404. The reports section is a wish list, not a menu.
+ * 4. Seeded permissions with no endpoint, so no item may be gated on them:
+ *    support.access, billing.view, billing.manage, audit.view.
  */
