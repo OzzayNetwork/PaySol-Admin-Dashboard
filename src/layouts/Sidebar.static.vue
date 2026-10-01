@@ -1059,7 +1059,6 @@ import {
 
 
 import AUTH from '@/api/auth'
-import { useAuthStore } from '@/stores/auth'
 
 // Components
 import LoaderVue from '@/layouts/Loader.vue'
@@ -1079,9 +1078,8 @@ import {
 
 const isLoading = ref(true)
 
-const authStore = useAuthStore()
-const menuPermissions = ref([])
-const sideMenuLinks = ref([])
+const menuPermissions=ref()
+const menuBarItems=ref()
 
 
 
@@ -1167,18 +1165,6 @@ const initMetisMenu = () => {
 
 };
 
-async function loadPermissions() {
-  isLoading.value = true
-  try {
-    // Prefer the store: login already gave us this, and it survives a refresh.
-    menuPermissions.value = authStore.user?.permissions ?? []
-  } catch (e) {
-    console.error('Could not read admin permissions', e)
-  } finally {
-    isLoading.value = false
-  }
-}
-
 
 onMounted(() => {
 
@@ -1187,8 +1173,6 @@ onMounted(() => {
         initMetisMenu();
 
     });
-
-    loadPermissions()
 
 });
 

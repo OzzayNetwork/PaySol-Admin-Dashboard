@@ -1,84 +1,150 @@
-// src/api/geography.js
-import apiClient from "./index";
+import { apiClient } from "./index";
 
 /**
- * Geographic hierarchy API client.
+ * Location reference data — /api/v1 (public, unauthenticated)
  *
  * The hierarchy is:
- *   County (47) → Constituency (290) → Ward (1450) → Polling Station (40,883)
+ *   Country -> County -> Constituency -> Sub-county -> Ward -> Area
  *
- * Each list endpoint returns name + slug for dropdown population.
- * The slug is what you pass to the next-level endpoint to cascade.
+ *   Country      250     ISO2/ISO3, currency, dialling code
+ *   County        47     Kajiado is code 034
+ *   Constituency 290
+ *   Sub-county   334
+ *   Ward        1,439
+ *   Area         232     PaySol-curated: estates, villages, markets, centres
  *
- * All endpoints require authentication (Bearer token via apiClient interceptor).
+ * CASCADE BY ID, NOT BY SLUG. Every child route is bound with whereNumber(), so
+ * the segment is the row's numeric primary key:
+ *
+ *   GET /counties/34/constituencies
+ *   GET /counties/34/sub-counties
+ *   GET /constituencies/12/wards
+ *   GET /wards/3/areas
+ *
+ * A three-digit `code` such as "034" is NOT accepted here — it is a lookup
+ * label, not a key. Passing it resolves to a different county, silently.
+ *
+ * List endpoints answer { data: [...], count, meta? } and need no token.
  */
 export default {
   /**
-   * All 47 counties.
+   * All 47 counties, each with its centroid, geo and child counts.
    *
-   * @param {Object} [params]
-   * @param {string} [params.year]  Optional — '2013' | '2017' | '2022'. When set,
-   *                                each county includes registered_voters and
-   *                                polling_stations counts for that year.
-   *
-   * @returns Promise<{ data: { data: Array<{id, code, name, slug, registered_voters?, polling_stations?}> } }>
+   * @returns Promise<{ data: { data: County[], count: number } }>
    */
   counties(params = {}) {
     return apiClient.get("/counties", { params });
   },
 
-  /**
-   * Constituencies in a given county.
-   *
-   * @param {string} countySlug   e.g. 'mombasa', 'nairobi-city', 'kajiado'
-   * @param {Object} [params]
-   * @param {string} [params.year]  Optional — adds voter totals per constituency
-   *
-   * @returns Promise<{ data: { data: Array<{id, code, name, slug, ...}> } }>
-   */
-  constituencies(countySlug, params = {}) {
-    return apiClient.get(`/counties/${countySlug}/constituencies`, { params });
+  /** One county by id. @param {number} id */
+  county(id) {
+    return apiClient.get(`/counties/${id}`);
   },
 
   /**
-   * Wards in a given constituency.
-   *
-   * @param {string} constituencySlug   e.g. 'changamwe', 'kibra', 'kajiado-north'
-   * @param {Object} [params]
-   * @param {string} [params.year]      Optional — adds voter totals per ward
-   *
-   * @returns Promise<{ data: { data: Array<{id, code, name, slug, ...}> } }>
+   * Constituencies in a county.
+   * @param {number} countyId numeric county id
+   * @returns { data: { data: Constituency[], count, meta: { county } } }
    */
-  wards(constituencySlug, params = {}) {
-    return apiClient.get(`/constituencies/${constituencySlug}/wards`, { params });
+  constituencies(countyId, params = {}) {
+    return apiClient.get(`/counties/${countyId}/constituencies`, { params });
+  },
+
+  /** One constituency by id. @param {number} id */
+  constituency(id) {
+    return apiClient.get(`/constituencies/${id}`);
   },
 
   /**
-   * Polling stations. Filter to one ward via the `ward` param (recommended for dropdowns).
-   *
-   * @param {Object} [params]
-   * @param {string} [params.ward]     Ward slug — recommended filter for dropdowns
-   * @param {string} [params.county]   Optional: filter by county slug or 3-digit code
-   * @param {boolean} [params.has_coordinates]  Optional: only stations with GPS
-   * @param {number} [params.limit]    Optional: default 100, max 1000
-   *
-   * @returns Promise<{ data: { data: Array<{code, name, registration_centre_id, ...}> } }>
+   * Wards in a constituency.
+   * @param {number} constituencyId numeric constituency id
    */
-  pollingStations(params = {}) {
-    return apiClient.get("/polling-stations", { params });
+  wards(constituencyId, params = {}) {
+    return apiClient.get(`/constituencies/${constituencyId}/wards`, { params });
   },
 
-  // returning the countries list for the country select component
+  /**
+   * Canonical sub-counties in a county.
+   *
+   * Named `subcounties` because that is what sub-county inputs already call,
+   * with `geoSubCounties` kept as an alias for existing callers.
+   *
+   * @param {number} countyId numeric county id
+   */
+  subcounties(countyId) {
+    return apiClient.get(`/counties/${countyId}/sub-counties`);
+  },
+
+  geoSubCounties(countyId) {
+    return this.subcounties(countyId);
+  },
+
+  /** One sub-county by id. @param {number} id */
+  subCounty(id) {
+    return apiClient.get(`/sub-counties/${id}`);
+  },
+
+  /** One ward by id. @param {number} id */
+  ward(id) {
+    return apiClient.get(`/wards/${id}`);
+  },
+
+  /** Curated areas inside a ward. @param {number} wardId */
+  wardAreas(wardId, params = {}) {
+    return apiClient.get(`/wards/${wardId}/areas`, { params });
+  },
+
+  /**
+   * Areas across all of Kenya. Seeded areas are unverified until an admin with
+   * areas.approve verifies them, so `is_verified` is worth showing.
+   */
+  areas(params = {}) {
+    return apiClient.get("/areas/search", { params });
+  },
+
+  /** One area by id. @param {number} id */
+  area(id) {
+    return apiClient.get(`/areas/${id}`);
+  },
+
+  /** Free-text place search across the whole hierarchy. */
+  search(params = {}) {
+    return apiClient.get("/geo/search", { params });
+  },
+
+  /** Nearest parent regions to a point. */
+  locate(params = {}) {
+    return apiClient.get("/geo/locate", { params });
+  },
+
+  /**
+   * All 250 countries, full shape.
+   * @returns { data: { data: Country[] } }
+   */
   countries(params = {}) {
     return apiClient.get("/countries", { params });
   },
 
-  //countries lightweight list for the country select component
-   countriesLightweight(params = {}) {
-    return apiClient.get("/countries?fields=dropdown", { params });
+  /**
+   * Trimmed country list for a picker: iso2, iso3, name, phone_code only.
+   *
+   * `fields` goes through axios params rather than being interpolated into the
+   * path, so it is properly encoded and cannot be duplicated by `params`.
+   */
+  countriesLightweight(params = {}) {
+    return apiClient.get("/countries", {
+      params: { ...params, fields: "dropdown" },
+    });
   },
-  /** Canonical sub-counties for one county. @param {number|string} county */
-  geoSubCounties(county) {
-    return apiClient.get(`/counties/${county}/sub-counties`);
+
+  /**
+   * NOT PART OF PAYSOL.
+   *
+   * Left here because Polling.station.id.vue still imports it. PaySol has no
+   * polling stations or voter data — there is no endpoint for this to reach, so
+   * every call returns 404. Delete the client and the page together.
+   */
+  pollingStations(params = {}) {
+    return apiClient.get("/polling-stations", { params });
   },
 };

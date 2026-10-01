@@ -2,7 +2,7 @@
     <SelectSearchBox
         v-model="selectedSubcounty"
         :options="subcounties.map(subcounty => ({
-            value: subcounty.code,
+            value: subcounty.id,
             label: subcounty.name
         }))"
         :loading="loading"
@@ -17,8 +17,10 @@ import { ref, onMounted, defineEmits, watch } from "vue";
 import SelectSearchBox from "@/components/SelectSearchBox.vue";
 import GEOGRAPHYAPI from "@/api/geography";
 
+// A numeric county id. The three-digit county code is a lookup label, not a
+// key: /counties/{county} is bound with whereNumber() and resolves by id.
 const props = defineProps({
-    countyCode: {
+    countyId: {
         type: [String, Number],
         required: true
     }
@@ -31,7 +33,7 @@ const selectedSubcounty = ref(null);
 const loading = ref(false);
 
 async function fetchSubcounties() {
-    if (!props.countyCode) {
+    if (!props.countyId) {
         return;
     }
 
@@ -39,12 +41,10 @@ async function fetchSubcounties() {
     loading.value = true;
 
     try {
-        const { data } = await GEOGRAPHYAPI.subcounties(
-            props.countyCode
-        );
+        const { data } = await GEOGRAPHYAPI.subcounties(props.countyId);
 
         subcounties.value = [
-            { code: null, name: "All Subcounties" },
+            { id: null, name: "All Subcounties" },
             ...(data.data ?? [])
         ];
 
@@ -63,11 +63,11 @@ onMounted(() => {
 });
 
 watch(
-    () => props.countyCode,
-    (newCountyCode) => {
+    () => props.countyId,
+    (newCountyId) => {
         selectedSubcounty.value = null;
 
-        if (newCountyCode) {
+        if (newCountyId) {
             fetchSubcounties();
         } else {
             subcounties.value = [];

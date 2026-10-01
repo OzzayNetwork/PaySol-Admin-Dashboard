@@ -2,7 +2,7 @@
    <SelectSearchBox
     v-model="selectedCounty"
     :options="counties.map(county => ({
-        value: county.code,
+        value: county.id,
         label: county.name
     }))"
     :loading="loading"
@@ -28,8 +28,9 @@ async function fetchCounties(){
     loading.value=true
     try{
         const {data}=await GEOGRAPHYAPI.counties()
-        counties.value=[{ code: null, name: "All Counties" }, ...data.data??[]]
-        console.log("Fetched counties:",counties.value)
+        // "All Counties" is a null id — the child endpoints take a numeric id,
+        // not the three-digit county code.
+        counties.value=[{ id: null, name: "All Counties" }, ...(data.data??[])]
     }catch(error){
         console.error("Error fetching counties:",error)
     }finally{

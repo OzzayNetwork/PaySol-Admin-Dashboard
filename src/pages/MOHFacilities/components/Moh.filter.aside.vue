@@ -330,7 +330,7 @@
                     <div>Sub-county test area</div>
                     <SelectSubCounty
                         v-model="subCountyFilter"
-                        :county-code="countyFilter"
+                        :county-id="countyFilter"
                         @subcounty-selected="setSubCounty"
                         />
                 </div>
