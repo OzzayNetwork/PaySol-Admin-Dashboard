@@ -14,6 +14,11 @@ import UserAdd from "../pages/SystemUsers/User.Add.vue";
 import UsersTable from "../pages/SystemUsers/Users.Table.All.vue";
 import UserDetails from "@/pages/SystemUsers/User.details.vue";
 
+// team (admin users)
+import TeamInvite from "@/pages/Team/Team.Invite.vue";
+import TeamList from "@/pages/Team/Team.List.vue";
+import TeamDetails from "@/pages/Team/Team.Details.vue";
+
 // Import views
 import Home from "@/pages/Home.vue";
 import MenuCategories from "@/pages/PosMenus/MenuCategories.vue";
@@ -355,6 +360,26 @@ const routes = [
     name: "UserDetails",
     component: UserDetails,
     meta: {requiresAuth: true,title: "User Details", screenName: "User Details", contentGroup: "User Management"}
+  },
+
+  // team (admin users)
+  {
+    path: "/team",
+    name: "TeamList",
+    component: TeamList,
+    meta: {requiresAuth: true,title: "System Users", screenName: "System Users", contentGroup: "Team"}
+  },
+  {
+    path: "/team/:id",
+    name: "TeamDetails",
+    component: TeamDetails,
+    meta: {requiresAuth: true,title: "Admin Profile", screenName: "Admin Profile", contentGroup: "Team"}
+  },
+  {
+    path: "/team/invite",
+    name: "TeamInvite",
+    component: TeamInvite,
+    meta: {requiresAuth: true,title: "Add a System User", screenName: "Add a System User", contentGroup: "Team"}
   }
 ];
 

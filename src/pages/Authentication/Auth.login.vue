@@ -144,13 +144,13 @@
                     </form>
 
                     <div>
-                       <div class="text-center my-3 d-flex align-items-center justify-content-center gap-2">
+                       <div class="text-center my-3 d-flex align-items-center justify-content-center gap-2 d-none">
                         <div class="flex-grow-1 opacity-25"><hr class="d-flex flex-grow-1"></div>
                         <span>OR</span>
                         <div class="flex-grow-1 opacity-25"><hr class="d-flex flex-grow-1"></div>
                       </div>
 
-                      <label class="border waves-light waves-effect border-primary visibility-option  border-2 mb-2 shadow-none cursor-pointer border-radius w-100">
+                      <label class="border waves-light waves-effect border-primary visibility-option  border-2 mb-2 shadow-none cursor-pointer border-radius w-100 d-none">
                           <div class="p-3 px-3">
                               <div class="d-flex align-items-center">
                                   <div class="avatar-sm me-3">

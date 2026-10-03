@@ -1,5 +1,5 @@
             .navbar-brand-box {
-                text-align: left;
+                /* text-align: left; */
             }
             
             body[data-sidebar=dark] .mm-active .active i {
@@ -9,6 +9,8 @@
             body[data-sidebar=dark] .mm-active .active {
                 color: #63b1fc !important;
                 font-weight: 600;
+                border-right: 2px solid;
+                background-color: #6c757d14;
             }
             
             .breadcrumb-item+.breadcrumb-item::before {
@@ -2826,4 +2828,121 @@ border: none;
 
 .nav-pills-main .nav-link {
     transition: all 0.2s ease;
+}
+.logo .logo-lg{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+.logo .logo-lg img{
+}
+.logo{
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+/* =========================================
+   Custom Checkbox
+   ========================================= */
+
+.custom-checkbox .form-check-input {
+    appearance: none;
+    -webkit-appearance: none;
+
+    width: 28px;
+    height: 28px;
+
+    margin: 0;
+
+    background-color: #fff;
+    border: 2px solid #c6d9df;
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    box-shadow: none;
+    transition: all 0.15s ease;
+}
+
+/* Checked state - inherits Bootstrap primary */
+.custom-checkbox .form-check-input:checked {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+}
+
+/* Checkmark */
+.custom-checkbox .form-check-input:checked::after {
+    /* content: ""; */
+
+    position: absolute;
+
+    width: 9px;
+    height: 15px;
+
+    left: 8px;
+    top: 3px;
+
+    border: solid #fff;
+    border-width: 0 3px 3px 0;
+
+    transform: rotate(45deg);
+}
+
+/* Hover */
+.custom-checkbox .form-check-input:hover {
+    border-color: var(--bs-primary);
+}
+
+/* Focus */
+.custom-checkbox .form-check-input:focus {
+    border-color: var(--bs-primary);
+    box-shadow: 0 0 0 3px rgba(var(--bs-primary-rgb), 0.15);
+}
+
+/* Label */
+.custom-checkbox .form-check-label {
+    cursor: pointer;
+}
+
+/* Small */
+.custom-checkbox-sm .form-check-input {
+    width: 20px;
+    height: 20px;
+    border-radius: 6px;
+}
+
+.custom-checkbox-sm .form-check-input:checked::after {
+    width: 6px;
+    height: 11px;
+    left: 6px;
+    top: 2px;
+    border-width: 0 2px 2px 0;
+}
+
+
+/* Medium */
+.custom-checkbox-md .form-check-input {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+}
+
+
+/* Large */
+.custom-checkbox-lg .form-check-input {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+}
+
+.custom-checkbox-lg .form-check-input:checked::after {
+    width: 11px;
+    height: 19px;
+    left: 10px;
+    top: 4px;
+    border-width: 0 4px 4px 0;
 }

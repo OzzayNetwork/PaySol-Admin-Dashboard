@@ -19,6 +19,11 @@ export default {
     return adminClient.get("/roles");
   },
 
+  /** List identification document types (National ID, Passport, ...). */
+  identificationTypes() {
+    return adminClient.get("/identification-types");
+  },
+
   /**
    * List admins.
    * @param {Object} [params]
@@ -31,7 +36,13 @@ export default {
     return adminClient.get("/admins", { params });
   },
 
-  /** Create an admin. Needs team.manage. */
+  /**
+   * Create an admin. Needs team.manage.
+   *
+   * Pass a FormData instance when including a profile_photo file; otherwise
+   * a plain object works. Do NOT manually set Content-Type for FormData —
+   * the browser sets the multipart boundary automatically.
+   */
   create(payload) {
     return adminClient.post("/admins", payload);
   },

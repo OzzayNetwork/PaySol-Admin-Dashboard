@@ -440,7 +440,8 @@ body[data-layout=horizontal] .footer {
 
 #sidebar-menu ul li a {
     display: block;
-    padding: .625rem 1.5rem;
+    /* padding: .625rem 1.5rem; */
+    padding: .825rem 1.5rem;
     color: #545a6d;
     position: relative;
     font-size: 13px;
@@ -555,7 +556,10 @@ body[data-layout=horizontal] .footer {
 }
 
 .vertical-collpsed .logo span.logo-sm {
-    display: block
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
 }
 
 .vertical-collpsed .vertical-menu {
